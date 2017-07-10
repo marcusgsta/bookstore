@@ -16,31 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Account`
---
-
-DROP TABLE IF EXISTS `Account`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Account` (
-  `id` char(4) NOT NULL,
-  `name` varchar(8) DEFAULT NULL,
-  `balance` decimal(4,2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Account`
---
-
-LOCK TABLES `Account` WRITE;
-/*!40000 ALTER TABLE `Account` DISABLE KEYS */;
-INSERT INTO `Account` VALUES ('1111','Adam',10.00),('2222','Eva',7.00);
-/*!40000 ALTER TABLE `Account` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Cart`
 --
 
@@ -50,10 +25,11 @@ DROP TABLE IF EXISTS `Cart`;
 CREATE TABLE `Cart` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer` int(11) DEFAULT NULL,
+  `deleted` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `customer` (`customer`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`customer`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +38,7 @@ CREATE TABLE `Cart` (
 
 LOCK TABLES `Cart` WRITE;
 /*!40000 ALTER TABLE `Cart` DISABLE KEYS */;
-INSERT INTO `Cart` VALUES (1,1),(2,2);
+INSERT INTO `Cart` VALUES (1,1,NULL),(2,2,NULL);
 /*!40000 ALTER TABLE `Cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +59,7 @@ CREATE TABLE `CartRow` (
   KEY `product` (`product`),
   CONSTRAINT `cartrow_ibfk_1` FOREIGN KEY (`cart`) REFERENCES `Cart` (`id`),
   CONSTRAINT `cartrow_ibfk_2` FOREIGN KEY (`product`) REFERENCES `Product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +68,7 @@ CREATE TABLE `CartRow` (
 
 LOCK TABLES `CartRow` WRITE;
 /*!40000 ALTER TABLE `CartRow` DISABLE KEYS */;
-INSERT INTO `CartRow` VALUES (1,1,3,2),(2,1,4,2),(3,2,1,1),(4,2,2,1),(5,2,3,1),(6,2,4,96);
+INSERT INTO `CartRow` VALUES (9,2,4,1),(10,2,5,1),(11,2,1,1),(12,2,3,1),(13,2,2,1),(14,1,4,6),(15,1,5,2),(16,1,1,2);
 /*!40000 ALTER TABLE `CartRow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,60 +106,6 @@ LOCK TABLES `Content` WRITE;
 /*!40000 ALTER TABLE `Content` DISABLE KEYS */;
 INSERT INTO `Content` VALUES (1,'hem',NULL,'Hem','Detta är min hemsida. Den är skriven i [url=http://en.wikipedia.org/wiki/BBCode]bbcode[/url] vilket innebär att man kan formattera texten till [b]bold[/b] och [i]kursiv stil[/i] samt hantera länkar.\n\nDessutom finns ett filter \'nl2br\' som lägger in <br>-element istället för \\n, det är smidigt, man kan skriva texten precis som man tänker sig att den skall visas, med radbrytningar.','page','bbcode,nl2br','2017-05-26 00:00:00','2017-05-26 08:26:58',NULL,NULL),(2,'om',NULL,'Om','Detta är en sida om mig och min webbplats. Den är skriven i [Markdown](http://en.wikipedia.org/wiki/Markdown). Markdown innebär att du får bra kontroll över innehållet i din sida, du kan formattera och sätta rubriker, men du behöver inte bry dig om HTML.\n\nRubrik nivå 2\n-------------\n\nDu skriver enkla styrtecken för att formattera texten som **fetstil** och *kursiv*. Det finns ett speciellt sätt att länka, skapa tabeller och så vidare.\n\n###Rubrik nivå 3\n\nNär man skriver i markdown så blir det läsbart även som textfil och det är lite av tanken med markdown.','page','markdown','2017-05-26 00:00:00','2017-05-26 08:26:58','2017-05-26 00:00:00',NULL),(3,'blogpost-1','valkommen-till-min-blogg','Välkommen till min blogg!','Detta är en bloggpost.\r\n\r\nNär det finns länkar till andra webbplatser så kommer de länkarna att bli klickbara.\r\n\r\nhttp://dbwebb.se är ett exempel på en länk som blir klickbar.','post','clickable,nl2br','2017-05-26 00:00:00','2017-05-26 08:26:58',NULL,NULL),(4,'blogpost-2','nu-har-sommaren-kommit','Nu har sommaren kommit','Detta är en bloggpost som berättar att sommaren har kommit, ett budskap som kräver en bloggpost.','post','nl2br','2017-05-26 00:00:00','2017-05-26 08:26:58',NULL,NULL),(21,'footer','footer','Footer','© Böcker bokhandel 2017','block','clickable,nl2br','2017-07-06 13:28:06','2017-07-06 11:28:06',NULL,NULL);
 /*!40000 ALTER TABLE `Content` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Course`
---
-
-DROP TABLE IF EXISTS `Course`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Course` (
-  `code` char(6) NOT NULL,
-  `nick` char(12) DEFAULT NULL,
-  `points` decimal(3,1) DEFAULT NULL,
-  `name` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`code`),
-  UNIQUE KEY `nick_unique` (`nick`),
-  KEY `index_name` (`name`),
-  KEY `index_points` (`points`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Course`
---
-
-LOCK TABLES `Course` WRITE;
-/*!40000 ALTER TABLE `Course` DISABLE KEYS */;
-INSERT INTO `Course` VALUES ('DV1506','webgl',7.5,'Spelteknik för webben'),('DV1531','python',7.5,'Programmering och Problemlösning med Python'),('DV1546','webapp',7.5,'Webbapplikationer för mobila enheter'),('DV1547','linux',7.5,'Programmera webbtjänster i Linux'),('DV1561','javascript',7.5,'Programmering med JavaScript'),('PA1436','design',7.5,'Teknisk webbdesign och användbarhet'),('PA1437','oopython',7.5,'Objektorienterad design och programmering med Python'),('PA1439','htmlphp',7.5,'Webbteknologier'),('PA1444','dbjs',10.0,'Webbprogrammering och databaser');
-/*!40000 ALTER TABLE `Course` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Customer`
---
-
-DROP TABLE IF EXISTS `Customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Customer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(20) DEFAULT NULL,
-  `lastName` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Customer`
---
-
-LOCK TABLES `Customer` WRITE;
-/*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-INSERT INTO `Customer` VALUES (1,'Mumin','Trollet'),(2,'Mamma','Mumin'),(3,'Pappa','Mumin');
-/*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -237,7 +159,7 @@ CREATE TABLE `Inventory` (
 
 LOCK TABLES `Inventory` WRITE;
 /*!40000 ALTER TABLE `Inventory` DISABLE KEYS */;
-INSERT INTO `Inventory` VALUES (6,1,'AAA101',99),(7,2,'AAA102',99),(8,3,'AAA101',99),(9,4,'AAA102',4),(10,5,'AAA102',100);
+INSERT INTO `Inventory` VALUES (6,1,'AAA101',91),(7,2,'AAA102',90),(8,3,'AAA101',86),(9,4,'AAA102',85),(10,5,'AAA102',94);
 /*!40000 ALTER TABLE `Inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -280,7 +202,7 @@ CREATE TABLE `InventoryLog` (
   `old_amount` decimal(10,0) DEFAULT NULL,
   `new_amount` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +211,6 @@ CREATE TABLE `InventoryLog` (
 
 LOCK TABLES `InventoryLog` WRITE;
 /*!40000 ALTER TABLE `InventoryLog` DISABLE KEYS */;
-INSERT INTO `InventoryLog` VALUES (1,'trigger','2017-07-06 11:40:00',4,100,4);
 /*!40000 ALTER TABLE `InventoryLog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,9 +228,9 @@ CREATE TABLE `Invoice` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `order` (`order`),
-  KEY `customer` (`customer`),
+  KEY `invoice_ibfk_2` (`customer`),
   CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`order`) REFERENCES `Order` (`id`),
-  CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`customer`) REFERENCES `Customer` (`id`)
+  CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`customer`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -367,8 +288,8 @@ CREATE TABLE `Order` (
   `delivery` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `customer` (`customer`),
-  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`customer`) REFERENCES `Customer` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`customer`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -377,7 +298,6 @@ CREATE TABLE `Order` (
 
 LOCK TABLES `Order` WRITE;
 /*!40000 ALTER TABLE `Order` DISABLE KEYS */;
-INSERT INTO `Order` VALUES (1,2,'2017-07-06 11:40:00',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `Order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,7 +318,7 @@ CREATE TABLE `OrderRow` (
   KEY `product` (`product`),
   CONSTRAINT `orderrow_ibfk_1` FOREIGN KEY (`order`) REFERENCES `Order` (`id`),
   CONSTRAINT `orderrow_ibfk_2` FOREIGN KEY (`product`) REFERENCES `Product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -407,7 +327,6 @@ CREATE TABLE `OrderRow` (
 
 LOCK TABLES `OrderRow` WRITE;
 /*!40000 ALTER TABLE `OrderRow` DISABLE KEYS */;
-INSERT INTO `OrderRow` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,96);
 /*!40000 ALTER TABLE `OrderRow` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -507,7 +426,7 @@ CREATE TABLE `users` (
   `gravatar` varchar(100) DEFAULT NULL,
   `role` varchar(2) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -555,6 +474,23 @@ SET character_set_client = utf8;
   `CartRow` tinyint NOT NULL,
   `Description` tinyint NOT NULL,
   `Items` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vcartrows`
+--
+
+DROP TABLE IF EXISTS `vcartrows`;
+/*!50001 DROP VIEW IF EXISTS `vcartrows`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vcartrows` (
+  `id` tinyint NOT NULL,
+  `cart` tinyint NOT NULL,
+  `product` tinyint NOT NULL,
+  `items` tinyint NOT NULL,
+  `name` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -684,6 +620,25 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `vcartrows`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vcartrows`*/;
+/*!50001 DROP VIEW IF EXISTS `vcartrows`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_unicode_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vcartrows` AS select `CR`.`id` AS `id`,`CR`.`cart` AS `cart`,`CR`.`product` AS `product`,`CR`.`items` AS `items`,`P`.`name` AS `name` from ((`cartrow` `CR` left join `product` `P` on((`CR`.`product` = `P`.`id`))) left join `inventory` `I` on((`P`.`id` = `I`.`prod_id`))) order by `CR`.`cart` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `vinventory`
 --
 
@@ -787,4 +742,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-06 13:40:53
+-- Dump completed on 2017-07-10 20:19:05
