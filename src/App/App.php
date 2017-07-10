@@ -1,0 +1,84 @@
+<?php
+/**
+*   Class App for various functions
+*/
+namespace Mag\App;
+
+/**
+* An App class to wrap the resources of the framework.
+*/
+class App
+{
+
+    /**
+    *   render a normal page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
+    public function renderPage($title, $page, $data = null)
+    {
+        $this->view->add("take1/header", ["title" => $title]);
+        $this->view->add("navbar1/navbar1");
+        $this->view->add($page, ["data" => $data]);
+
+        $this->view->add("take1/footer");
+
+        $this->response->setBody([$this->view, "render"])
+                      ->send();
+    }
+
+    /**
+    *   render admin page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
+    public function renderAdminPage($title, $page, $data = null)
+    {
+        $this->view->add("take1/header", ["title" => $title]);
+        $this->view->add("admin/navbar");
+        $this->view->add($page, ["data" => $data]);
+        $this->view->add("take1/footer");
+
+        $this->response->setBody([$this->view, "render"])
+                      ->send();
+    }
+
+    /**
+    *   render a content / blog page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
+    public function renderContentPage($title, $page, $data = null)
+    {
+        $this->view->add("content/header", ["title" => $title]);
+        $this->view->add("content/navbar");
+        $this->view->add($page, ["data" => $data]);
+        $this->view->add("take1/footer");
+
+        $this->response->setBody([$this->view, "render"])
+                      ->send();
+    }
+
+    /**
+    *   render a webshop page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
+    public function renderWebShopPage($title, $page, $data = null)
+    {
+        $this->view->add("content/header", ["title" => $title]);
+        $this->view->add("webshop/navbar");
+        $this->view->add($page, ["data" => $data]);
+        $this->view->add("take1/footer");
+        $this->response->setBody([$this->view, "render"])
+                      ->send();
+    }
+}
