@@ -1,0 +1,42 @@
+/*
+** Typographical grid
+*/
+
+@import 'hgrid-helper.less';
+
+// @import 'grid.less';
+
+@import 'style.less';
+
+
+// .inner-wrap {
+//     @gridImage: "../img/grid/horisontal-grid-24.png";
+//
+//     html.hgrid & {
+//         .showGrid();
+//     }
+//
+//     &.inner-wrap-header {
+//         html.hgrid & {
+//             .showGrid();
+//         }
+//     }
+// }
+
+html.vgrid .inner-wrap,
+html.hgrid .inner-wrap {
+    overflow:auto;
+}
+
+html.hgrid .inner-wrap {
+    @gridImage: "../img/grid/magic-number-24.png";
+    .showHGrid(@gridImage);
+}
+// #hgrid
+
+@media screen and (max-width: 1070px) {
+
+    .navbar2 {
+        display:none;
+    }
+}

@@ -1,0 +1,413 @@
+
+
+/*----------------------------------------------------------------------*/
+/*
+Table of contents
+
+
+X. Analysis - screenshot image
+
+X. footer
+X. Responsive design
+
+*/
+/*----------------------------------------------------------------------*/
+
+@magicNumber: 24px;
+
+@columnWidth:   30;
+@gutterWidth:   10;
+@columns:       24;
+
+
+
+.route-grid .inner-wrap {
+    @gridWidth: 1100px;
+    @gridImage: "../img/grid950x24x30x10-nomargin.png";
+    // @gridImage: "../img/grid940x12x60x20-nomargin.png";
+
+    .grid(@gridWidth);
+    html.vgrid & {
+        .showGrid(@gridWidth, @gridImage);
+    }
+
+    &.inner-wrap-header {
+        @gridWidth: 100%;
+        .grid(@gridWidth);
+        html.vgrid & {
+            .showGrid(@gridWidth, @gridImage);
+        }
+    }
+}
+
+//
+// // .info {
+// //     .column(3);
+// // }
+//
+// /**
+//  * Wrap grid in a container.
+//  */
+// .container() {
+//     margin-right: auto;
+//     margin-left: auto;
+// }
+//
+// .container-fixed() {
+//     .container();
+//     width: @gridSystemWidth - @gutterWidth;
+// }
+//
+// .wrap-all {
+//     .container();
+//     max-width: 960px;
+// }
+//
+// @totalWidth: 100%;           // Fluid layout
+//
+// .wrap {
+//     max-width: 960px;
+//     margin: 0 auto;
+// }
+//
+.row {
+    .row();
+}
+//
+.row {
+    .column(24);
+}
+
+/*
+** Header
+*/
+
+.site-header {
+    .column(24);
+}
+
+.site-header {
+  height: @magicNumber * 3;
+}
+
+.outer-wrap-footer {
+    clear:both;
+    overflow:auto;
+    padding: 16px 0 16px 0;
+
+    ul {
+        list-style-type: none;
+    }
+}
+
+
+.outer-wrap-header,
+.outer-wrap-main,
+.footer-column-wrapper {
+    margin-bottom: @magicNumber;
+}
+
+.footer-column-wrapper {
+    .clearfix();
+}
+
+.logo-1 {
+    position:absolute;
+    left: 100px;
+    top: 100px;
+}
+
+.site-logo-text {
+    .column(6);
+
+}
+
+.navbar2 {
+    .column(18);
+
+}
+
+.flashy {
+    width: 100%;
+}
+.flash-wrap {
+    .column(@columns);
+}
+
+// .main {
+//     .column(20);
+//     .push(2);
+// }
+
+.footer-column {
+    .column(@columns / 3);
+}
+
+.site-footer {
+    .column(@columns);
+    text-align:center;
+}
+
+.sidebar-right {
+    .column(2);
+}
+
+
+
+// .site-logo-text,
+// .profile {
+//   float:left;
+//   width: 25%;
+// }
+//
+// .navbar2 {
+//   float:left;
+//   width: 40%;
+// }
+//
+
+// .breadcrumb-list ul {
+//   list-style-type: none;
+// }
+//
+// .outer-wrap-flash {
+//     .column(12);
+//     float:none;
+//     height: @magicNumber * 8;
+//     width: 100%;
+//     // margin-top: @magicNumber;
+//     // margin-bottom: @magicNumber;
+//     margin-left: 0;
+//     margin-right: 0;
+//
+//     .row {
+//       margin: 0;
+//     }
+//
+// }
+//
+// // img.flashy {
+// //   height:100% ;
+// // }
+//
+// .flash-wrap {
+//   margin: 0;
+// }
+//
+// .outer-wrap-breadcrumb {
+//   // height: @magicNumber;
+//   margin-bottom: 0;
+// }
+//
+//
+// // .outer-wrap-header {
+// //
+// // }
+//
+.main {
+    .column(12);
+    .push(8);
+}
+//
+// .sidebar {
+//     .column(3);
+// }
+//
+// .sidebar-right {
+//   .column(3);
+//   margin-left:-2px;
+// }
+
+.next {
+  float:right;
+}
+
+/*-------------------------------------------------------------------
+X. Reports
+-------------------------------------------------------------------*/
+ul {
+    list-style-type:none;
+}
+.route-report {
+    ul {
+        list-style-type: none;
+    }
+}
+
+.main.has-sidebar-left {
+    .column(14);
+    float:left;
+}
+
+.sidebar-left {
+    .push(2);
+    .column(6);
+}
+
+
+
+
+/*-------------------------------------------------------------------
+X. Analysis - Screenshot image
+-------------------------------------------------------------------*/
+
+.screenshot {
+
+}
+// .route-analysis-colorscheme {
+//
+//   td {
+//     width: 70px;
+//     height: 70px;
+//   }
+// }
+
+td {
+  width: 70px;
+  height: 70px;
+}
+
+// .route-theme {
+//   td {
+//     width: 100px;
+//     height: 100px;
+//   }
+// }
+
+
+
+/*
+** Footer
+*/
+//
+//
+// .outer-wrap-footer {
+//     clear: both;
+//     // margin: 40px 0 22px 0;
+//     // padding: 20px 100px 20px 100px;
+//     ul{
+//     list-style-type: none;
+//     margin-left: 0;
+//     text-align:left;
+//     }
+// }
+//
+// .footer-column {
+//   .column(4);
+//     ul {
+//         // margin: 0;
+//         // padding: 1em;
+//         // list-style-type: none;
+//     }
+// }
+
+// .footer-column-1 {
+//   padding-left:10px;
+// }
+// .footer-column-2 {
+//   padding-left: 5px;
+// }
+// .footer-column-3 {
+//   padding-left: 0;
+// }
+
+img.byline {
+  // .column(3);
+  // float:left;
+  // padding: 0 6px 0 6px;
+}
+
+p.byline {
+  word-break: break-word;
+}
+//
+// .site-footer {
+//   clear:both;
+//   text-align:center;
+//   ul.footy {
+//     display:inline-block;
+//     margin-left: -50px;
+//     // .column(5);
+//
+//     li {
+//     float:left;
+//     display:inline;
+//     }
+//     li.footy-item1 {
+//       padding-right: 10px;
+//     }
+//
+//   }
+// }
+//
+// .toc h4 {
+//   padding-left:10px;
+// }
+// .has-sidebar-left {
+//   padding-left: 2px;
+// }
+
+// .showGrid(960);
+
+
+
+/**
+* Responsive design
+*/
+//
+//
+// @media screen and (min-width: 901px) {
+//     .site-logo-text {
+//         width: 10%;
+//     }
+//
+//     .navbar2 {
+//         width: 85%;
+//     }
+//
+//     .profile {
+//         width: 5%;
+//     }
+// }
+//
+// @media screen and (max-width: 900px) {
+//     .site-logo-text {
+//         width: 25%;
+//     }
+//
+//     .navbar2 {
+//         width: 65%;
+//     }
+//
+//     .profile {
+//         width: 10%;
+//     }
+// }
+//
+// @media screen and (max-width: 750px) {
+//     .sidebar {
+//         display:none;
+//     }
+// }
+//
+// @media screen and (max-width: 700px) {
+//     .-column {
+//         width: 100%;
+//     }
+// }
+//
+// @media screen and (max-width: 925px) {
+//     .site-logo-text {
+//         width: 90%;
+//     }
+//
+//     .navbar2 {
+//         display:none;
+//     }
+// }
+//
+// @media screen and (max-width: 500px) {
+//     img.flashy  {
+//         // visibility:hidden;
+//     }
+// }

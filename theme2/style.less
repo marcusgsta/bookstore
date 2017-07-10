@@ -1,0 +1,296 @@
+/**
+* Anax Flat Theme.
+*/
+
+/*------------------------------------------------------------------
+[Table of contents]
+
+1. LESS Variables
+2. Imports
+3. Body
+4. Header .site-logo-text
+5. Navigation .rm-desktop
+6. Article img
+7. Footer
+8. Typography
+9. Tables
+
+-------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------
+1. LESS Variables
+*/
+@BGColor: khaki;
+@navbarItemBgColor: #eee;
+@navbarItemHoverBgColor: #ddd;
+@footerBackgroundColor: burlywood;
+@maxButtonFontSize: 2em;
+@navbarHoverBgColor: #dddddd;
+
+
+/*-------------------------------------------------------------------
+2. Imports
+*/
+
+@import url(modules.less);
+
+/*-------------------------------------------------------------------
+3. Body / main
+*/
+
+body {
+  background-color: @BGColor;
+}
+
+// main for .route-grid
+.route-grid {
+    .main {
+        background-color:green;
+        opacity: 0.5;
+    }
+}
+
+/*-------------------------------------------------------------------
+4. Header
+*/
+
+.site-logo-text {
+  font-size: 2em;
+
+  a {
+    text-decoration: none;
+    color: #222;
+  }
+}
+
+.logo-1 {
+    position: absolute;
+    top: 70px;
+    left: -140px;
+}
+
+.site-logo-text-icon {
+    img {
+        vertical-align: bottom;
+    }
+}
+
+// Header for .route-grid
+.route-grid {
+    .site-logo-text {
+        background-color: red;
+        opacity: 0.5;
+    }
+}
+
+.route-grid {
+    .navbar2 {
+        background-color: yellow;
+        opacity: 0.5;
+    }
+}
+
+
+
+/*-------------------------------------------------------------------
+5. Navigation
+*/
+
+
+.rm-desktop li {
+  height: @magicNumber * 2;
+  a {
+    padding: 0.75em;
+  }
+  a:hover {
+    text-decoration: none;
+    background-color: @navbarHoverBgColor;
+  }
+}
+
+li.selected-parent a,
+li.selected a {
+  background-color: #c5c5f3;
+}
+
+.rm-max .rm-small .rm-button {
+      // font-size: 2em;
+}
+
+.rm-mobile li.selected a {
+  color: #000;
+}
+
+.toc li.selected a {
+  background-color: inherit;
+}
+
+/*-------------------------------------------------------------------
+6. Article img
+*/
+
+
+// .article img {
+//   border: 3px solid #fff;
+//   outline: px solid #222;
+// }
+
+/*-------------------------------------------------------------------
+7. Footer
+*/
+
+.outer-wrap-footer {
+  background-color: @footerBackgroundColor;
+}
+.footer {
+  margin-left: 0;
+}
+// Footer for .route-grid
+.route-grid {
+
+    .outer-wrap-footer {
+        background-color: black;
+        color: white;
+        a {
+            color: yellow;
+        }
+    }
+}
+.route-grid {
+    .footer-column {
+        background-color: brown;
+        opacity: 0.5;
+    }
+}
+
+.route-grid {
+    .site-footer {
+        background-color: blue;
+        opacity: 0.5;
+        color: white;
+    }
+}
+
+
+
+/*-------------------------------------------------------------------
+8. Typography
+*/
+
+/**
+ * Size and lineheight calculation for magicNumber 24
+ *
+ * 3em     * 16px   = 48 => line-height: 48    = 1
+ * 2.875em * 16px   = 46 => line-height: 48/44 = 1.0435
+ * 2.75em  * 16px   = 44 => line-height: 48/44 = 1.0909
+ * 2.625em * 16px   = 42 => line-height: 48/42 = 1.1429
+ * 2.5em   * 16px   = 40 => line-height: 48/40 = 1.2
+ * 2.375em * 16px   = 38 => line-height: 48/38 = 1.2632
+ * 2.25em  * 16px   = 36 => line-height: 48/36 = 1.3333
+ * 2.125em * 16px   = 34 => line-height: 48/34 = 1.4118
+ * 2em     * 16px   = 32 => line-height: 48/32 = 1.5
+ * 1.875em * 16px   = 30 => line-height: 48/30 = 1.6
+ * 1.75em  * 16px   = 28 => line-height: 48/28 = 1.7143
+ * 1.625em * 16px   = 26 => line-height: 48/26 = 1.8462
+ * 1.5em   * 16px   = 24 => line-height: 24    = 1
+ * 1.375em * 16px   = 22 => line-height: 24/22 = 1.0909
+ * 1.25em  * 16px   = 20 => line-height: 24/20 = 1.2
+ * 1.125em * 16px   = 18 => line-height: 24/18 = 1.3333
+ * 1em     * 16px   = 16 => line-height: 24/16 = 1.5
+ * 0.875em * 16px   = 14 => line-height: 24/14 = 1.7143
+ * 0.75em  * 16px   = 12 => line-height: 24/12 = 2
+ */
+
+/**
+ * Magic number for vertical rythm
+ * @magicNumber = @fontSizeBody * @lineHeight
+ */
+@magicNumber:   24px;   /* 16px - 100%/1.5 */
+//@magicNumber:   22px; /* 16px - 100%/1.375 */
+@fontSizeBody:  16px;
+@fontSizeBody:  16px;
+@lineHeight:    (unit(@magicNumber) / unit(@fontSizeBody));
+
+
+h1 {
+    line-height: @lineHeight;
+    margin-bottom: @magicNumber;
+}
+
+p {
+  margin-bottom: @magicNumber;
+  line-height: @lineHeight;
+}
+
+@fontSizeH1: 2.375em;
+@fontSizeH2: 2.125em;
+@fontSizeH3: 1.875em;
+@fontSizeH4: 1.625em;
+@fontSizeH5: 1.375em;
+
+h1 {
+    .fontSize(@fontSizeH1);
+    font-weight: normal;
+}
+h2 {
+    .fontSize(@fontSizeH2);
+    font-weight: normal;
+}
+h3 {
+    .fontSize(@fontSizeH3);
+    font-weight: normal;
+}
+h4 {
+    .fontSize(@fontSizeH4);
+    font-weight: normal;
+}
+h5 {
+    .fontSize(@fontSizeH5);
+    font-weight: normal;
+}
+
+
+/**
+ * Default font-families
+ */
+@fontFamilyHeadings:  @fontFamilyCambria;
+@fontFamilyBody:      @fontFamilyHelvetica;
+@fontFamilyCode:      @fontFamilyCourier;
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: @fontFamilyHeadings;
+}
+
+.font(@fontSize: 100.01%, @fontFamily: @fontFamilyBody) {
+    font: @fontSize/@lineHeight @fontFamily;
+}
+
+body {
+    .font();
+}
+
+/**
+ * 9. Tables
+ */
+
+.route-analysis-speed-and-usability {
+    table {
+        text-align:center;
+    }
+    table, th, td {
+    border: 2px solid black;
+    }
+    td {
+        font-size: 1.1em;
+    }
+    th {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+
+    .navbar2 {
+        display:none;
+    }
+}

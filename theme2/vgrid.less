@@ -1,0 +1,143 @@
+/*
+** Grid-based layout
+*/
+
+//modules
+@import url(modules.less);
+
+@import 'grid.less';
+// // Responsive menu
+// @import url(responsive-menu.less);
+
+html.vgrid .inner-wrap,
+html.hgrid .inner-wrap {
+    overflow:auto;
+}
+
+@magicNumber: 24px;
+body {
+}
+
+@columnWidth:   30;
+@gutterWidth:   10;
+@columns:       24;
+
+// .wrap-all {
+//     margin: auto;
+// border: 4px dashed pink;
+// max-width: 950px;
+// padding-top: 16px;
+// border-radius: 40px;
+// background-color: #eee;
+// padding-bottom: 16px;
+// margin-bottom: 16px;
+// }
+
+
+
+.inner-wrap {
+    @gridWidth: 1100px;
+    @gridImage: "../img/grid950x24x30x10-nomargin.png";
+    // @gridImage: "../img/grid940x12x60x20-nomargin.png";
+
+    .grid(@gridWidth);
+    html.vgrid & {
+        .showGrid(@gridWidth, @gridImage);
+    }
+
+    &.inner-wrap-header {
+        @gridWidth: 100%;
+        .grid(@gridWidth);
+        html.vgrid & {
+            .showGrid(@gridWidth, @gridImage);
+        }
+    }
+}
+
+.outer-wrap-footer {
+    background-color: black;
+    color: white;
+    padding: 16px 0 16px 0;
+
+    a {
+        color: yellow;
+    }
+    ul {
+        list-style-type: none;
+    }
+}
+
+
+
+.row {
+    .row();
+}
+
+.outer-wrap-header,
+.outer-wrap-main,
+.footer-column-wrapper {
+    margin-bottom: @magicNumber;
+}
+
+.footer-column-wrapper {
+    .clearfix();
+}
+
+.logo-1 {
+    position:absolute;
+    left: 100px;
+    top: 100px;
+}
+
+.site-logo-text {
+    .column(6);
+    background-color: yellow;
+    opacity: 0.5;
+}
+
+.navbar2 {
+    .column(18);
+    background-color: yellow;
+    opacity: 0.5;
+}
+
+.flashy {
+    width: 100%;
+}
+.flash-wrap {
+    .column(@columns);
+}
+
+.main {
+    .column(20);
+    .push(2);
+    background-color:green;
+    opacity: 0.5;
+}
+
+.footer-column {
+    .column(@columns / 3);
+    background-color: brown;
+    opacity: 0.5;
+}
+
+.site-footer {
+    .column(@columns);
+    background-color: blue;
+    opacity: 0.5;
+    color: white;
+    text-align:center;
+
+
+}
+
+.sidebar-right {
+    .column(2);
+}
+
+@media screen and (max-width: 1270px) {
+
+    .navbar2 {
+        display:none;
+    }
+}

@@ -1,0 +1,33 @@
+.showHGrid(@gridImage) {
+
+  // .route-typography .wrap-all {
+    .inner-wrap {
+    // background-image: url('../img/grid/horisontal-grid-24.png');
+    background-image: url("@{gridImage}");
+    // max-width: @maxi;
+    // background-size:contain;
+    // .outer-wrap-footer {
+    //   opacity: 0.5;
+    // }
+  }
+}
+
+/**
+ * Typographic mixins.
+ */
+// #hgrid {
+    .showHGrid(@gridImage) {
+        background-image: url("@{gridImage}");
+    }
+
+    .font(@fontSize: 100.01%, @fontFamily: @fontFamilyBody) {
+        font: @fontSize/@lineHeight @fontFamily;
+    }
+
+    .fontSize(@fontSize) {
+        font-size: @fontSize;
+        line-height: @lineHeight / unit(@fontSize) * ceil(unit(@fontSize) / @lineHeight);
+    }
+
+    // 5/4 for smaller font-size, incremental leading.
+// }
