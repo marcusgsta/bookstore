@@ -10,6 +10,8 @@ if (!$data) {
     $resultset = $data;
 }
 
+$lastProducts = $resultset[0]->lastProducts;
+$mostSold = $resultset[0]->mostSold;
 ?>
 
 <article class="news">
@@ -37,9 +39,44 @@ if (!$data) {
 
 <article class="latest_products">
     <h2>Senaste inkomna produkter</h2>
+        <table>
+            <tr class="first">
+                <th>Namn</th>
+                <th>Beskrivning</th>
+                <th>Bild</th>
+                <th>Kategori</th>
+                <th>Pris</th>
+                <th>På lager</th>
+                <th></th>
+            </tr>
+        <?php foreach ($lastProducts as $row) :
+        ?>
+            <tr>
+                <td><?= esc($row->name); ?></td>
+                <td><?= esc($row->description); ?></td>
+                <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->description)?>"></td>
+                <td><?= esc($row->category); ?></td>
+                <td><?= esc($row->price); ?></td>
+                <td><?= esc($row->items); ?></td>
+                <td><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></td>
+            </tr>
+
+        <?php endforeach; ?>
+        </table>
+
 </article>
 <article class="most_sold">
     <h2>Mest sålda produkt</h2>
+    <table>
+        <tr>
+            <?php foreach($mostSold as $row) : ?>
+            <td><?= esc($row->name);?> </td>
+            <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->description)?>"></td>
+            <td><?=esc($row->sold) . " stk sålda!";?></td>
+        <?php endforeach; ?>
+</tr>
+</table>
+
 </article>
 <article class="this_week">
     <h2>Veckans erbjudande</h2>

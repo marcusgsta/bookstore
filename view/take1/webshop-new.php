@@ -33,7 +33,7 @@ if ($search != "") {
     <tr>
         <td><?= esc($search_result->name); ?></td>
         <td><?= esc($search_result->description); ?></td>
-        <td><img src="image/webshop/<?=esc($search_result->image)?>?w=150" class="productImage" title="Image of <?=esc($search_result->description)?>"</td>
+        <td><img src="image/webshop/<?=esc($search_result->image)?>?w=150" class="productImage" title="Image of <?=esc($search_result->description)?>"></td>
         <td><?= esc($search_result->category); ?></td>
         <td><?= esc($search_result->price); ?></td>
         <td><?= esc($search_result->items); ?></td>
@@ -75,7 +75,7 @@ $result = $data;
     <tr>
         <td><?= esc($row->name); ?></td>
         <td><?= esc($row->description); ?></td>
-        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->description)?>"</td>
+        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->description)?>"></td>
         <td><?= esc($row->category); ?></td>
         <td><?= esc($row->price); ?></td>
         <td><?= esc($row->items); ?></td>

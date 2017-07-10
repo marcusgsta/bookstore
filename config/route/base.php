@@ -20,7 +20,19 @@ EOD;
         $content = $app->db->executeFetchAll($sql, ["post"]);
         $view = "take1/home";
         $title = "Hem";
-        
+
+        // Get the last products added to product table
+        $orderBy = "id";
+        $order = "DESC";
+        $limit = 2;
+        $lastProducts = $app->admin->showProducts($orderBy, $order, $limit);
+        // inject into $content to send to page
+        $content[0]->lastProducts = $lastProducts;
+
+        // Get the most sold product
+        $mostSold = $app->admin->getMostSoldProduct();
+        $content[0]->mostSold = $mostSold;
+
         $app->renderPage($title, $view, $content);
     }
 );

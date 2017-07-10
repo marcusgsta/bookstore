@@ -226,11 +226,39 @@ EOD;
      * @var array $res      The resultset
      * @return $res
      */
-    public function showProducts($orderby = 'name', $order = 'ASC')
+    public function showProducts($orderby = 'name', $order = 'ASC', $limit = '30')
     {
-        $this->db->execute("SELECT * FROM VProduct ORDER BY $orderby $order");
+        $this->db->execute("SELECT * FROM VProduct ORDER BY $orderby $order
+        LIMIT $limit");
         $res = $this->db->fetchAll();
         //  executeFetchAll
+        return $res;
+    }
+
+    /**
+     * Get most sold products
+     * @param string $orderby  Which column to order by, default: 'name'
+     * @param string $order  ASC or DESC, default: 'ASC'
+     * @var array $res      The resultset
+     * @return $res
+     */
+    public function getMostSoldProduct($limit = '1')
+    {
+        $this->db->execute("SELECT R.product,
+            R.items,
+            SUM(R.items) AS sold,
+            P.description,
+            P.name,
+            P.image
+        FROM `OrderRow`AS R
+        LEFT OUTER JOIN Product AS P
+        ON R.product = P.id
+        GROUP BY product
+        ORDER BY sold DESC
+        LIMIT $limit;");
+
+        $res = $this->db->fetchAll();
+
         return $res;
     }
 
