@@ -1,9 +1,9 @@
 <?php
 if (hasKeyPost("doCreate")) {
-    $description = getPost("productDescription");
+    $name = getPost("productName");
 
-    $sql = "INSERT INTO Product (description) VALUES (?);";
-    $app->db->execute($sql, [$description]);
+    $sql = "INSERT INTO Product (name) VALUES (?);";
+    $app->db->execute($sql, [$name]);
 
     $id = $app->db->lastInsertId();
 
@@ -23,8 +23,8 @@ if (hasKeyPost("doCreate")) {
     <legend>Skapa</legend>
 
     <p>
-        <label>Beskrivning:<br>
-        <input type="text" name="productDescription" default="A Description"/>
+        <label>Namn:<br>
+        <input type="text" name="productName" default="Name"/>
         </label>
     </p>
 

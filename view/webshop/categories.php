@@ -1,20 +1,9 @@
 <?php
 
-// if (getGet("deleteId")) {
-//     $deleteId = getGet("deleteId");
-//     $sql = "DELETE FROM ProdCategory WHERE id=$deleteId";
-//     $app->db->execute($sql);
-// }
-
 if (hasKeyPost("doCreate")) {
     $categoryName = getPost("categoryName");
-    $categoryName = esc($categoryName);
     $sql = "INSERT INTO ProdCategory (category) VALUES (?);";
     $app->db->execute($sql, [$categoryName]);
-
-
-    // $id = $app->db->lastInsertId();
-    // header("Location: edit?id=$id");
 }
 
 // Show all categories

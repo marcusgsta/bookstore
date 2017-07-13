@@ -9,7 +9,7 @@ if (!$data) {
 <div class="container">
 <h1>Orderhistorik för </h1>
 
-<?php foreach($data as $order): ?>
+<?php foreach ($data as $order) : ?>
     <table>
         <tr>
             <th>Order id</th><th>Orderdatum</th>

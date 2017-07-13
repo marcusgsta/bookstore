@@ -23,12 +23,6 @@ foreach ($cat_ids as $cat_id) {
     array_push($cat_array, $cat_id->cat_id);
 }
 
-
-// if (hasKeyPost("doDelete")) {
-//     header("Location: delete?id=$productId");
-//     exit;
-// }
-
 // Get inventory, to check how many items there are
 
    $sql = "SELECT * FROM Inventory WHERE prod_id=$productId";
@@ -57,6 +51,7 @@ if (hasKeyPost("productAmount")) {
 if (hasKeyPost("doSave")) {
     //$params gets all values from getPost()
     $params = getPost([
+    "productName",
     "productDescription",
     "productImage",
     "productPrice",
@@ -71,7 +66,7 @@ if (hasKeyPost("doSave")) {
 
     $productId = $params['productId'];
 
-    $sql = "UPDATE Product SET description=?, image=?, price=? WHERE id = ?;";
+    $sql = "UPDATE Product SET name=?, description=?, image=?, price=? WHERE id = ?;";
 
     $app->db->execute($sql, array_values($params));
 
@@ -102,8 +97,13 @@ if (hasKeyPost("doSave")) {
     <input type="hidden" name="productId" value="<?= esc($product->id) ?>"/>
 
     <p>
-        <label>Beskrivning:<br>
-        <input type="text" name="productDescription" value="<?= isset($product->description) ? esc($product->description) : '' ?>"/>
+        <label>Namn:<br>
+        <input type="text" name="productName" value="<?= isset($product->name) ? esc($product->name) : '' ?>"/>
+        </label>
+    </p>
+    <p>
+        <label>Beskrivning:<br>        
+        <textarea name="productDescription" rows="8" cols="80"><?= isset($product->description) ? esc($product->description) : '' ?></textarea>
         </label>
     </p>
 
@@ -112,13 +112,16 @@ if (hasKeyPost("doSave")) {
         <input type="text" name="productImage" value="<?= isset($product->image) ? esc($product->image) : null ?>"/>
     </p>
 
-    <p>
+    <div class="checkbox">
         <label>Kategori:<br>
             <?php foreach ($categories as $category) :?>
+                <div class="left">
             <input type="checkbox" name="catId[]" value="<?=$category->id;?>" <?=in_array($category->id, $cat_array) ? 'checked' : ''?>>
-<?=esc($category->category);
-endforeach;?>
-    </p>
+<?=$category->category; ?>
+</div>
+<?php endforeach;?>
+
+    </div>
 
 
     <p>

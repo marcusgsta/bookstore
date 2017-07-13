@@ -111,13 +111,12 @@ $app->router->add(
 
         // Check if order-button is clicked
         if (hasKeyPost("order")) {
-
             // get cartId from userId
             $cartId = $app->webshop->getCartId($userId);
             $sql = "CALL makeOrder($cartId)";
             $result = $app->db->executeFetch($sql);
             if ($result == true) {
-                foreach($result as $res) {
+                foreach ($result as $res) {
                     echo $res;
                     die;
                 }

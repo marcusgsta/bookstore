@@ -13,7 +13,6 @@ $navbar = [
             "text" => "Administrera",
             "route" => "admin",
         ],
-
         "Visa varor" => [
             "text" => "Visa varor",
             "route" => "webshop",
@@ -21,6 +20,10 @@ $navbar = [
         "Skapa" => [
             "text" => "Skapa",
             "route" => "webshop/create",
+        ],
+        "Skapa erbjudande" => [
+            "text" => "Skapa erbjudande",
+            "route" => "webshop/create_offer",
         ],
         "Kategorier" => [
             "text" => "Kategorier",

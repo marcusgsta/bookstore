@@ -24,12 +24,24 @@ $orderId = $result[0]->order;
 ?>
     <tr>
         <td><?= esc($row->name); ?></td>
-        <td><?= esc($row->price . " SEK"); ?></td>
+
+        <td><?php
+
+        $price = isset($row->new_price) ? $row->new_price : $row->price;
+        echo $price . " SEK"; ?>
+    </td>
         <td><?= esc($row->items); ?></td>
+        <td><?php
+            $total = 0;
+        if (isset($row->new_price)) {
+                $row->total = $row->new_price * $row->items;
+        }
+            ?></td>
+
         <td><?= esc($row->total . " SEK"); ?></td>
         <?php
             $sum += $row->total;
-         ?>
+            ?>
     </tr>
 
 <?php endforeach; ?>

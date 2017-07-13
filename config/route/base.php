@@ -33,6 +33,20 @@ EOD;
         $mostSold = $app->admin->getMostSoldProduct();
         $content[0]->mostSold = $mostSold;
 
+        // Get this weeks offer (the newest one from the table)
+        $sql = "SELECT * FROM Offer
+        WHERE (deleted IS NULL OR deleted > NOW())";
+
+        $offer = $app->db->executeFetchAll($sql);
+        $content[0]->offer = $offer;
+
+        // Get recommended products
+        $sql = "SELECT * FROM VProduct
+        WHERE recommended = 1";
+        $recommended = $app->db->executeFetchAll($sql);
+
+        $content[0]->recommended = $recommended;
+
         $app->renderPage($title, $view, $content);
     }
 );
