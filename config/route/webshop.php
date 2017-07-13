@@ -13,17 +13,6 @@ $app->router->add(
             echo '<p>You\'ll be redirected in about 5 secs. If not, click <a href="login">here</a>.</p>';
             exit;
         }
-
-        // $user_name = $app->session->get('user_name');
-        //
-        // if (!$app->admin->userIsAdmin($user_name)) {
-        //     $admin_message = "<div class='container'><p>Bara administratörer har tillgång till sidan.</p>";
-        //
-        //     header("refresh:5;url=../login");
-        //     echo $admin_message;
-        //     echo '<p>You\'ll be redirected in about 5 secs. If not, click <a href="login">here</a>.</p>';
-        //     exit;
-        // }
     }
 );
 
@@ -56,6 +45,59 @@ $app->router->add(
         $app->renderWebShopPage("Skapa produkt", "webshop/create");
     }
 );
+
+$app->router->add(
+    "webshop/create_offer",
+    function () use ($app) {
+
+        $sql = "SELECT * FROM Product";
+        $products = $app->db->executeFetchAll($sql);
+
+        if (hasKeyPost("submit")) {
+            $name = getPost("product_name");
+            $discount = getPost("discount");
+            $recommended = getPost("recommended");
+
+            // Get the product's original price
+            $sql = "SELECT id, price FROM Product WHERE name LIKE '$name'";
+            $res = $app->db->executeFetch($sql);
+            $productId = $res->id;
+            $price = $res->price;
+            $new_price = $price - ($price * $discount / 100);
+            $description = getPost("description");
+            $sql = "INSERT INTO Offer (name, product, new_price, discount, description)
+            VALUES ('$name', $productId, $new_price, $discount, '$description');";
+            $app->db->execute($sql);
+
+            // check product as recommended
+            if (isset($recommended) && $recommended != 0) {
+                $sql = "UPDATE Product SET recommended = $recommended
+                WHERE id = $productId";
+                $app->db->execute($sql);
+            }
+        }
+
+            // Check if offer was deleted
+        if (hasKeyGet("remove")) {
+            $offerId = getGet("remove");
+            $sql = "UPDATE Offer
+            SET
+            deleted = NOW(),
+            new_price = NULL
+            WHERE id = $offerId";
+            $app->db->execute($sql);
+        }
+
+
+        $sql = "SELECT * FROM Offer";
+        $offers = $app->db->executeFetchAll($sql);
+
+        $products[0]->offers = $offers;
+        $app->renderWebshopPage("Admin", "webshop/create_offer", $products);
+        // $app->renderWebshopPage("Admin", "login/create_offer", $products);
+    }
+);
+
 
 $app->router->add(
     "webshop/edit",

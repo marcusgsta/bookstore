@@ -55,6 +55,7 @@ CREATE TABLE `Product` (
 	  `description` varchar(60) DEFAULT NULL,
 	  `price` decimal(10, 2) DEFAULT NULL,
 	  `image` varchar(20) DEFAULT NULL,
+      `recommended` INT(1),
   PRIMARY KEY (`id`),
   KEY `index_description` (`description`)
 )
@@ -302,14 +303,18 @@ SELECT
 	P.name,
     P.description,
 	P.image,
+    P.recommended,
     GROUP_CONCAT(DISTINCT category) AS category,
 	P.price,
+    Offer.new_price,
 	I.items
 FROM Product AS P
 	LEFT OUTER JOIN Prod2Cat AS P2C
 		ON P.id = P2C.prod_id
 	LEFT OUTER JOIN ProdCategory AS PC
 		ON PC.id = P2C.cat_id
+	LEFT OUTER JOIN Offer
+		ON P.id = Offer.product
 	LEFT OUTER JOIN Inventory AS I
 		ON P.id = I.prod_id
 GROUP BY P.id
@@ -333,6 +338,10 @@ INSERT INTO `Inventory` (`prod_id`, `shelf_id`, `items`) VALUES
 ;
 
 SELECT * FROM InvenShelf;
+
+INSERT INTO `Offer` (name, description, discount, new_price ) VALUES
+("Super Blender", 81, 10, "hej")
+;
 
 --
 -- View connecting products with their place in the inventory
@@ -372,7 +381,60 @@ SELECT
 	WHERE C.type = 'post'
 	ORDER BY C.published
 	;
+    
 
+
+
+
+
+-- Create a table for this week's offer
+DROP TABLE IF EXISTS `Offer`;
+CREATE TABLE `Offer` (
+	id INT(3) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(100),
+    product INT(4),
+    description VARCHAR(200),
+    discount NUMERIC(10,2),
+    new_price NUMERIC(10,2),
+    `deleted` datetime DEFAULT NULL,
+    
+    FOREIGN KEY (product) REFERENCES Product (id)
+);
+    
+-- INSERT INTO Offer VALUES (name, description, price)(
+-- 	
+-- );
+    -- FUNCTION TO CREATE OFFER PRICE
+
+DELIMITER //
+
+DROP FUNCTION IF EXISTS Discount //
+CREATE FUNCTION Discount(
+	price NUMERIC,
+    discount NUMERIC(10, 2)
+)
+RETURNS NUMERIC
+BEGIN
+	RETURN price - (price * discount);
+END
+//
+
+DELIMITER ;
+
+-- USAGE:
+SELECT price,
+Discount(price, 0.2) AS 'Discount 20%'
+FROM Offer; 
+
+
+    
+    -- DROP VIEW IF EXISTS VOffer;
+--     CREATE VIEW VOffer AS
+--     SELECT
+--     name,
+--     description,
+--     price 
+    
 
 
 -- Create a view for products
@@ -633,12 +695,15 @@ R.product,
 R.items,
 P.name,
 P.price,
+Offer.new_price,
 (P.price * R.items) as 'total'
 FROM OrderRow AS R
 INNER JOIN `Order` AS O
 	ON R.order = O.id
 LEFT OUTER JOIN `Product` AS P
 	ON R.product = P.id
+LEFT OUTER JOIN Offer
+	ON P.id = Offer.product
 WHERE O.id = orderId
 -- WHERE R.id = orderId
 ORDER BY R.order
@@ -649,11 +714,48 @@ COMMIT;
 END
 //
 DELIMITER ;
+
 -- USAGE:
 -- CALL showUsersOrder(orderId)
 -- Example:
 -- CALL showUsersOrder(3);
 --
+
+-- PROCEDURE Recommended
+-- Get for recommended products
+-- Takes 3 product id's. Set to NULL if not wanted.
+
+DROP PROCEDURE IF EXISTS Recommended;
+DELIMITER //
+
+CREATE PROCEDURE Recommended(
+	productId1 INT,
+    productId2 INT,
+    productId3 INT
+)
+BEGIN
+
+SELECT
+P.id,
+P.name,
+P.description,
+P.image,
+P.price,
+Offer.new_price
+FROM Product AS P
+	LEFT OUTER JOIN Offer
+		ON P.id = Offer.product
+WHERE P.id = productId1
+OR P.id = productId2
+OR P.id = productId3
+LIMIT 3;
+
+END
+//
+DELIMITER ;
+
+-- EXAMPLE
+CALL Recommended(1, 2, NULL);
 
 -- PROCEDURE removeOrder
 -- Assigns order with certain orderId to DELETED
@@ -744,6 +846,92 @@ DELIMITER ;
 -- CALL showCart(2);
 --
 
+-- FUNCTION getPrice
+-- Get correct price discounted or not for a product
+DROP FUNCTION IF EXISTS getPrice;
+
+DELIMITER //
+
+CREATE FUNCTION getPrice(
+	productId INT(4)
+)
+RETURNS FLOAT(10, 2)
+
+BEGIN
+	DECLARE newPrice FLOAT(10, 2);
+	DECLARE oldPrice FLOAT(10, 2);
+	DECLARE price FLOAT(10, 2);
+    
+    -- SET price = 3;
+
+SELECT Offer.new_price
+INTO @price
+FROM Offer
+WHERE product = productId
+-- 	LEFT OUTER JOIN Product AS P
+-- 		ON Offer.product = P.id
+	-- WHERE P.id = productId
+		LIMIT 1
+;
+-- 
+-- SELECT @oldPrice:=P.price
+-- FROM Product AS P
+-- 	WHERE P.id = productId
+-- 		LIMIT 1;
+-- 
+-- IF newPrice IS NULL THEN SET price = oldPrice;
+-- ELSE SET price = newPrice;
+-- END IF;
+
+RETURN price;
+
+END//
+DELIMITER ;
+
+-- USAGE:
+SELECT
+getPrice(1);
+
+-- PROCEDURE getPrice
+-- Get correct price discounted or not for a product
+DROP PROCEDURE IF EXISTS getPrice;
+
+DELIMITER //
+
+CREATE PROCEDURE getPrice(
+	productId INT(4)
+)
+
+BEGIN
+	DECLARE newPrice FLOAT(10, 2);
+	DECLARE oldPrice FLOAT(10, 2);
+	DECLARE currentPrice FLOAT(10, 2);
+
+SELECT price
+INTO oldPrice
+FROM Product
+	WHERE id = productId
+    LIMIT 1
+;
+
+SELECT IFNULL( (
+SELECT new_price
+FROM Offer
+WHERE product = productId
+AND (deleted IS NULL OR deleted > NOW())
+LIMIT 1) , oldPrice);
+
+
+END
+//
+
+DELIMITER ;
+
+-- USAGE:
+
+CALL getPrice(5);
+
+
 -- PROCEDURE showCart
 -- Show cart rows from cart from a users ID
 DROP PROCEDURE IF EXISTS showUsersCart;
@@ -764,6 +952,7 @@ SELECT
 	P.name,
 	P.image,
 	P.price,
+    Offer.new_price,
 	C.id,
 	C.customer,
 	(P.price * CR.items) as 'total'
@@ -772,6 +961,8 @@ FROM CartRow AS CR
 		ON CR.product = P.id
 	LEFT OUTER JOIN Cart AS C
 		ON C.id = CR.cart
+	LEFT OUTER JOIN Offer
+		ON Offer.product = P.id
 	WHERE C.customer = userId
 GROUP BY CR.id, 'total'
 ORDER BY CR.cart;

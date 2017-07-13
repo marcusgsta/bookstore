@@ -22,18 +22,29 @@ $sum = 0;
         <th>Total</th>
         <th></th>
     </tr>
+
 <?php $id = -1; foreach ($result as $row) :
     $id++;
 ?>
     <tr>
         <td><?= esc($row->name); ?></td>
         <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"</td>
-        <td><?= esc($row->price . " SEK"); ?></td>
+        <td><?php
+
+        $price = isset($row->new_price) ? $row->new_price : $row->price;
+        echo $price . " SEK"; ?>
+    </td>
         <td><?= esc($row->items); ?></td>
+        <td><?php
+            $total = 0;
+        if (isset($row->new_price)) {
+                $row->total = $row->new_price * $row->items;
+        }
+            ?></td>
         <td><?= esc($row->total . " SEK"); ?></td>
         <?php
             $sum += $row->total;
-         ?>
+            ?>
         <td><a href="?remove=<?= esc($row->product);?>">Ta bort från varukorg</a></td>
     </tr>
 

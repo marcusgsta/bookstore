@@ -114,6 +114,17 @@ body::-webkit-scrollbar,
 
 /*--------------------------------------------------------------------
 
+3. Text
+
+/*-------------------------------------------------------------------*/
+
+.line {
+	text-decoration: line-through;
+}
+
+
+/*--------------------------------------------------------------------
+
 4. Main content
 
 /*-------------------------------------------------------------------*/
@@ -418,6 +429,10 @@ form.add_user input {
 	margin: 0 0 5px 0;
 }
 
+.checkbox {
+    width: 300px;
+}
+
 input.delete.right {
 	margin: 10px 0 0 0;
 }
@@ -467,6 +482,15 @@ strong {
 
 /*-----------------tables-------------*/
 
+.show-all {
+    box-sizing: border-box;
+}
+
+.show-all table {
+    width: 1100px;
+    max-width: 1100px;
+}
+
 .pages th,
 .show-all th {
 	font-weight: 700;
@@ -478,6 +502,13 @@ strong {
 .show-all td {
 	padding: 4px;
 	vertical-align: middle;
+}
+
+td .scrollable {
+    overflow: auto;
+    height: 200px;
+    text-align: left;
+    max-width: 250px;
 }
 
 /*-----------------.edit-content-------------*/

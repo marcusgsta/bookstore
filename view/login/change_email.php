@@ -17,10 +17,10 @@ if ($new_email != null && $pass != null) {
             $app->access->changeEmail($user, $new_email);
             $email = $app->access->getUsersEmail($user);
             $status = "Epostadress uppdaterad.";
-        } else {
-            $status = "Felaktigt lösenord.";
-        }
     } else {
+            $status = "Felaktigt lösenord.";
+    }
+} else {
         $status = "Alla fält måste fyllas i.";
     }
 

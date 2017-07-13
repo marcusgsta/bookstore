@@ -52,8 +52,29 @@ function hasKeyPost($key)
  *
  * @param string $value to sanitize
  *
- * @return string beeing sanitized
+ * @return string being sanitized
  */
+
+ /**
+  * Check if key is set in GET.
+  *
+  * @param mixed $key     to look for
+  *
+  * @return boolean true if key is set, otherwise false
+  */
+function hasKeyGet($key)
+{
+     return array_key_exists($key, $_GET);
+}
+
+ /**
+  * Sanitize value for output in view.
+  *
+  * @param string $value to sanitize
+  *
+  * @return string being sanitized
+  */
+
 function esc($value)
 {
     return htmlentities($value);
