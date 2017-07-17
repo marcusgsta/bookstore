@@ -32,7 +32,7 @@ $app->router->add(
 $app->router->add(
     "content",
     function () use ($app) {
-        $sql = "SELECT * FROM content;";
+        $sql = "SELECT * FROM Content;";
         $resultset = $app->db->executeFetchAll($sql);
 
         $app->renderContentPage("Visa allt innehåll", "content/show-all", $resultset);
@@ -43,7 +43,7 @@ $app->router->add(
     "content/show-all-content",
     function () use ($app) {
 
-        $sql = "SELECT * FROM content;";
+        $sql = "SELECT * FROM Content;";
         $resultset = $app->db->executeFetchAll($sql);
         $app->renderContentPage("Visa allt innehåll", "content/show-all", $resultset);
     }
@@ -52,15 +52,14 @@ $app->router->add(
 $app->router->add(
     "content/edit",
     function () use ($app) {
+
         $title = "Redigera innehåll";
         $view = "content/edit";
         $contentId = getGet("id");
 
-        $sql = "SELECT * FROM content WHERE id = ?;";
-        // $result = $app->db->executeFetch($sql, [$contentId]);
+        $sql = "SELECT * FROM Content WHERE id = ?;";
         $result = $app->db->executeFetch($sql, [$contentId]);
 
-        // $result = $result[0];
         $app->renderContentPage($title, $view, $result);
     }
 );
@@ -68,6 +67,16 @@ $app->router->add(
 $app->router->add(
     "content/create",
     function () use ($app) {
+
+        if (hasKeyPost("doCreate")) {
+            $title = getPost("contentTitle");
+
+            $sql = "INSERT INTO Content (title) VALUES (?);";
+            $app->db->execute($sql, [$title]);
+            $id = $app->db->lastInsertId();
+            header("Location: edit?id=$id");
+        }
+
         $title = "Skapa innehåll";
         $view = "content/create";
         $contentId = getGet("id");
@@ -88,12 +97,12 @@ $app->router->add(
 
         if (hasKeyPost("doDelete")) {
             $contentId = getPost("contentId");
-            $sql = "UPDATE content SET deleted=NOW() WHERE id=?;";
+            $sql = "UPDATE Content SET deleted=NOW() WHERE id=?;";
             $app->db->execute($sql, [$contentId]);
             header("Location: ../content");
             exit;
         }
-        $sql = "SELECT id, title FROM content WHERE id = ?; ";
+        $sql = "SELECT id, title FROM Content WHERE id = ?; ";
         $content = $app->db->executeFetch($sql, [$contentId]);
 
         $app->renderContentPage($title, $view, $content);
@@ -118,7 +127,7 @@ SELECT
         WHEN (published <= NOW()) THEN "isPublished"
         ELSE "notPublished"
     END AS status
-FROM content
+FROM Content
 WHERE type=?
 ;
 EOD;
@@ -134,13 +143,13 @@ $app->router->add(
     "content/page",
     function () use ($app) {
         $route = getGet("route");
-        // $sql = "SELECT *, DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS modified_iso8601, DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS modified FROM content WHERE path = ? AND (deleted IS NULL OR deleted > NOW());";
+        // $sql = "SELECT *, DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS modified_iso8601, DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS modified FROM Content WHERE path = ? AND (deleted IS NULL OR deleted > NOW());";
         $sql = <<<EOD
 SELECT
    *,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS modified_iso8601,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS modified
-FROM content
+FROM Content
 WHERE
     path = ?
     AND (deleted IS NULL OR deleted > NOW())
@@ -168,7 +177,7 @@ SELECT
    *,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-FROM content
+FROM Content
 WHERE
     type = ?
     AND (deleted IS NULL OR deleted > NOW())
@@ -196,7 +205,7 @@ SELECT
    *,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-FROM content
+FROM Content
 WHERE
     slug = ?
     AND type = ?
@@ -232,7 +241,7 @@ SELECT
    *,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-FROM content
+FROM Content
 WHERE
     type = ?
     AND (deleted IS NULL OR deleted > NOW())
@@ -261,7 +270,7 @@ SELECT
    *,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-FROM content
+FROM Content
 WHERE
     slug = ?
     AND type = ?

@@ -21,10 +21,26 @@ class App
     {
         $this->view->add("take1/header", ["title" => $title]);
         $this->view->add("navbar1/navbar1");
-        $this->view->add("take1/navbar");
-        // $this->view->add($page, ["user" => $data]);
         $this->view->add($page, ["data" => $data]);
 
+        $this->view->add("take1/footer");
+
+        $this->response->setBody([$this->view, "render"])
+                      ->send();
+    }
+
+    /**
+    *   render admin page
+    * @param string $title title of page
+    * @param string $page route to page
+    * @param string $data data, default = null
+    * @return void
+    */
+    public function renderAdminPage($title, $page, $data = null)
+    {
+        $this->view->add("take1/header", ["title" => $title]);
+        $this->view->add("admin/navbar");
+        $this->view->add($page, ["data" => $data]);
         $this->view->add("take1/footer");
 
         $this->response->setBody([$this->view, "render"])
@@ -42,8 +58,6 @@ class App
     {
         $this->view->add("content/header", ["title" => $title]);
         $this->view->add("content/navbar");
-        // $this->view->add("take1/navbar");
-        // $this->view->add($page, ["user" => $data]);
         $this->view->add($page, ["data" => $data]);
         $this->view->add("take1/footer");
 

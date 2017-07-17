@@ -16,6 +16,8 @@ $offers = $resultset[0]->offer;
 $recommended = $resultset[0]->recommended;
 
 ?>
+<div class="home">
+
 
 <article class="news">
 
@@ -41,33 +43,23 @@ $recommended = $resultset[0]->recommended;
 </article>
 
 <article class="latest_products">
-    <h2>Senaste inkomna produkter</h2>
-        <table>
-            <tr class="first">
-                <th>Namn</th>
-                <th>Beskrivning</th>
-                <th>Bild</th>
-                <th>Kategori</th>
-                <th>Pris</th>
-                <th>På lager</th>
-                <th></th>
-            </tr>
+    <h2>Senast inkomna produkter</h2>
+
         <?php foreach ($lastProducts as $row) :
         ?>
-            <tr>
-                <td><?= esc($row->name); ?></td>
-                <td><div class="scrollable"><?= esc($row->description); ?></div></td>
-                <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></td>
-                <td><?= esc($row->category); ?></td>
-                <td><?php
+
+                <div class="name"><?= esc($row->name); ?></div>
+                <div class="scrollable"><?= esc($row->description); ?></div>
+                <div><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></div>
+
+                <div><?php
                 $price = isset($row->new_price) ? $row->new_price . " (<span class='line'>$row->price</span>)" : $row->price;
-                echo $price; ?></td>
-                <td><?= esc($row->items); ?></td>
-                <td><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></td>
-            </tr>
+                echo $price; ?></div>
+
+                <div><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
 
         <?php endforeach; ?>
-        </table>
+
 
 </article>
 <article class="most_sold">
@@ -75,7 +67,7 @@ $recommended = $resultset[0]->recommended;
     <table>
         <tr>
             <?php foreach ($mostSold as $row) : ?>
-            <td><?= esc($row->name);?> </td>
+            <td class="name"><?= esc($row->name);?> </td>
             <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></td>
             <td><?=esc($row->sold) . " stk sålda!";?></td>
         <?php endforeach; ?>
@@ -85,45 +77,37 @@ $recommended = $resultset[0]->recommended;
 </article>
 <article class="this_week">
     <h2>Veckans erbjudande</h2>
-    <table>
+
             <?php foreach ($offers as $offer) : ?>
-        <tr>
-            <td><?=esc($offer->name); ?></td>
-            <td><div class="scrollable"><?=esc($offer->description); ?></div></td>
-            <td>Denna vecka: <?=esc($offer->new_price); ?> kr</td>
-            <td><?=esc($offer->discount); ?> % rabatt</td>
-        </tr>
+
+            <div class="name"><?=esc($offer->name); ?></div>
+            <div class="scrollable"><?=esc($offer->description); ?></div>
+            <div><?=esc($offer->new_price); ?> kr</div>
+            <div><?=esc($offer->discount); ?> % rabatt</div>
+
         <?php endforeach ?>
-    </table>
+
 
 </article>
 <article class="recommended_products">
     <h2>Rekommenderade produkter</h2>
-        <table>
-            <tr class="first">
-                <th>Namn</th>
-                <th>Beskrivning</th>
-                <th>Bild</th>
-                <th>Kategori</th>
-                <th>Pris</th>
-                <th>På lager</th>
-                <th></th>
-            </tr>
+
         <?php foreach ($recommended as $row) :
         ?>
-            <tr>
-                <td><?= esc($row->name); ?></td>
-                <td><div class="scrollable"><?= esc($row->description); ?></div></td>
-                <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></td>
-                <td><?= esc($row->category); ?></td>
-                <td><?php
+
+                <div class="name"><?= esc($row->name); ?></div>
+
+                <div><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></div>
+
+                <div><?php
                 $price = isset($row->new_price) ? $row->new_price . " (<span class='line'>$row->price</span>)" : $row->price;
-                echo $price; ?></td>
-                <td><?= esc($row->items); ?></td>
-                <td><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></td>
-            </tr>
+                echo $price; ?></div>
+
+                <div><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
+
 
         <?php endforeach; ?>
-        </table>
+
 
 </article>
+</div>

@@ -23,10 +23,16 @@
 
 /*-------------------------------------------------------------------*/
 
-@BGColor: #11091e;
+@navbarColor: #333;
+@BGColor: #fff;
+@footerColor: #333;
+
+@textColor: #333;
+@lightTextColor: #eee;
+
 @navbarItemBgColor: #eee;
 @navbarItemHoverBgColor: #ddd;
-@footerBackgroundColor: #000;
+
 @maxButtonFontSize: 2em;
 @navbarHoverBgColor: #dddddd;
 
@@ -65,7 +71,7 @@
 /*----------------------------*/
 
 html {
-    background-color: @BGColor;
+    // background-color: @BGColor;
     margin-top:0;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -83,7 +89,7 @@ body {
 }
 
 .container {
-    background-color: #eee5e6;
+    background-color: @BGColor;
     padding: 20px;
 	overflow:auto;
 	min-height: 456px;
@@ -91,7 +97,7 @@ body {
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
-    color: #0a0b21;
+    color: @textColor;
 
 	.RoundedSquare;
 }
@@ -112,6 +118,36 @@ body::-webkit-scrollbar,
     height:auto;
 }
 
+
+/*--------------------------------------------------------------------
+
+3. Home
+
+/*-------------------------------------------------------------------*/
+
+
+.home {
+    display:flex;
+    flex-flow: row wrap;
+}
+
+.home article {
+    width: 45%;
+}
+
+.news,
+.latest_products,
+.most_sold,
+.this_week,
+.recommended_products {
+    border: 1px solid #333;
+    padding: 8px;
+}
+
+.name {
+    font-style: italic;
+    font-size: 1.3em;
+}
 /*--------------------------------------------------------------------
 
 3. Text
@@ -137,13 +173,14 @@ body::-webkit-scrollbar,
 /*-----------------navbar1-----------------*/
 
 .navbar1 {
-	background-color: @BGColor;
+	background-color: @navbarColor;
     position: fixed;
     top: 0;
-    color: #fff;
+    color: @lightTextColor;
 	width: 100%;
 	min-width:335px;
-    padding: 8px 0 8px 0;
+    font-weight: 200;
+    padding: 8px 0 8px 8px;
 	ul {
 		list-style-type: none;
 		margin: 0;
@@ -162,73 +199,6 @@ body::-webkit-scrollbar,
 	}
 }
 
-/* NAVBAR0 */
-/*----------------------------------*/
-
-navbar.navbar0 {
-    position:relative;
-    background-color: #eee5e6;
-    float:right;
-    text-transform: uppercase;
-    font-family: sans-serif;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-    width:200px;
-    height:446px;
-
-    list-style-type:none;
-    margin: 0 0 0 5px;
-    border: 5px solid #eee5e6;
-}
-
-navbar.navbar0 a {
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    text-decoration: none;
-    color: #fff;
-    line-height:100px;
-    display:block;
-
-}
-
-.navbar0 .nav1:hover {
-    background-color: indianred;
-    opacity: 0.9;
-}
-
-navbar.navbar0 li {
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    text-align:center;
-    margin: 0 0 5px 0;
-    width: 200px;
-    float:left;
-    /*height: 33%;*/
-
-
-}
-navbar.navbar0 li:nth-child(1) {
-    background-color: #130720;
-}
-navbar.navbar0 li:nth-child(2) {
-    background-color: #b854d2;
-}
-navbar.navbar0 li:nth-child(3) {
-    background-color: #5f30f2;
-}
-navbar.navbar0 li:nth-child(4) {
-    background-color: #61a526;
-}
-
-.navbar0 li:nth-child(1).selected,
-.navbar0 li:nth-child(2).selected,
-.navbar0 li:nth-child(3).selected,
-.navbar0 li:nth-child(4).selected {
-    opacity: 0.9;
-    background-color: indianred;
-}
 /* Headings */
 
 h1 {
@@ -270,14 +240,13 @@ em {
     text-align:center;
     /*width: 585px;*/
 	width: 100%;
-    background-color: #11091e;
+    background-color: lighten(@footerColor, 10%);
     margin-top:5px;
-    border:5px solid #eee5e6;
-    color: #eee5e6;
+    color: @lightTextColor;
     letter-spacing: 1px;
     font-size:0.7em;
     font-family: sans-serif;
-    opacity: 0.8;
+    padding: 30px 0 30px 0;
 }
 
 img.calendar {
@@ -502,6 +471,15 @@ strong {
 .show-all td {
 	padding: 4px;
 	vertical-align: middle;
+}
+
+tr:hover {
+    outline: 1px solid gray;
+}
+
+td.name {
+    font-style: italic;
+    font-size: 1.3em;
 }
 
 td .scrollable {

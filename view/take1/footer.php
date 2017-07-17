@@ -2,9 +2,10 @@
 <div class="footer">
 <?php
 
-if (isset($footer->data)) {
-    $footer->data = esc($footer->data);
-    echo $footer->data;
+if (isset($app->footer)) {
+    $footer = $app->footer->data;
+    $footer = esc($footer);
+    echo $footer;
 } else {
     echo "<p>&copy; Marcus Gustafsson</p>";
 }

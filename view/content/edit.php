@@ -33,7 +33,7 @@ if (hasKeyPost("doSave")) {
     }
     $contentId = $params['contentId'];
     // check so that no slug exists with the same name
-    $sql = "SELECT * FROM content WHERE id NOT IN ( $contentId );";
+    $sql = "SELECT * FROM Content WHERE id NOT IN ( $contentId );";
     $res = $app->db->executeFetchAll($sql);
 
     foreach ($res as $row) {
@@ -44,25 +44,14 @@ if (hasKeyPost("doSave")) {
         }
     }
 
-
-
-
-    // if (!$app->db->executeFetchAll($sql)) {
-    //     echo "hej";
-    // };
-    // if ($app->db->executefetchAll($sql)) {
-    //     echo "fel";
-    // };
     if (!$params['contentPath']) {
         $params['contentPath'] = null;
     }
 
-    $sql = "UPDATE content SET title=?, path=?, slug=?, data=?, type=?, filter=?, published=? WHERE id = ?;";
+    $sql = "UPDATE Content SET title=?, path=?, slug=?, data=?, type=?, filter=?, published=? WHERE id = ?;";
 
     $app->db->execute($sql, array_values($params));
 
-
-    // $app->db->execute($sql);
     header("Location: edit?id=$content->id");
     exit;
 }

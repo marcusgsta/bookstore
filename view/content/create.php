@@ -1,12 +1,12 @@
 <?php
-if (hasKeyPost("doCreate")) {
-    $title = getPost("contentTitle");
-
-    $sql = "INSERT INTO content (title) VALUES (?);";
-    $app->db->execute($sql, [$title]);
-    $id = $app->db->lastInsertId();
-    header("Location: edit?id=$id");
-}
+// if (hasKeyPost("doCreate")) {
+//     $title = getPost("contentTitle");
+//
+//     $sql = "INSERT INTO Content (title) VALUES (?);";
+//     $app->db->execute($sql, [$title]);
+//     $id = $app->db->lastInsertId();
+//     header("Location: edit?id=$id");
+// }
 ?>
 
 <div class="container">

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class for handling access and login
+ *
+ */
+
 namespace Mag\Access;
 
 /**
@@ -115,7 +120,7 @@ class Access
     /**
      * Changes the email for a user
      * @param $user string The usr to change the password for
-     * @param $pass string The email to change to
+     * @param $email string The email to change to
      * @return void
      */
     public function changeEmail($user, $email)
