@@ -1,17 +1,28 @@
 <?php
-
-namespace Mag\Admin;
 /**
  * Class for handling administration pages
- * @param $db string The name of the database
- * @param $app string The app object
+ *
+ *
+ */
+
+namespace Mag\Admin;
+
+/**
+ * Class for handling administration pages
+ * @var $db string The name of the database
+ * @var $app string The app object
  * @return void
  */
 class Admin
 {
-    // private $db;
-    // public $hello = "hello";
+    /**
+    * @var $db string The name of the database
+    */
     public $db;
+
+    /**
+    * @var $app string The name of the database
+    */
     public $app;
 
     /**
@@ -24,20 +35,11 @@ class Admin
 
         $this->setDatabase($app->db);
         $this->setApp($app);
-
-        // try {
-        //     $db = new PDO($dsn);
-        //     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        //     $this->db = $db;
-        // } catch (PDOException $e) {
-        //     echo "Failed to connect to the database using DSN:<br>$dsn<br>";
-        // }
-
     }
 
     /**
      * Sets app
-     *
+     * @param $app The app object
      * @return void
      */
     public function setApp($app)
@@ -169,7 +171,6 @@ EOD;
         if ($gravatar != "") {
             $this->db->execute("UPDATE users SET gravatar='$gravatar' WHERE id='$id'");
         }
-
     }
 
     /**
@@ -186,6 +187,34 @@ EOD;
     }
 
     /**
+     * Get userId from userName
+     * @param string $user  A username
+     * @var $res
+     * @return int $res The user's id
+     */
+    public function getUserId($user)
+    {
+        $sql = "SELECT id FROM users WHERE name = '$user'";
+        $res = $this->db->executeFetch($sql);
+        $res = $res->id;
+        return $res;
+    }
+
+
+    /**
+     * Search for product by name or description
+     * @param string $searchString  A search string
+     * @var array $res      The resultset
+     * @return $res
+     */
+    public function searchProducts($searchString)
+    {
+        $this->db->execute("SELECT * FROM VProduct WHERE name LIKE '%$searchString%' OR description LIKE '%$searchString%'");
+        $res = $this->db->fetchAll();
+        return $res;
+    }
+
+    /**
      * Show all user accounts
      * @param string $orderby  Which column to order by, default: 'name'
      * @param string $order  ASC or DESC, default: 'ASC'
@@ -194,9 +223,114 @@ EOD;
      */
     public function showAccounts($orderby = 'name', $order = 'ASC')
     {
-        $this->db->execute("SELECT id, name, gravatar, role FROM users ORDER BY $orderby $order");
+        $this->db->execute("SELECT id, name, email, gravatar, role FROM users ORDER BY $orderby $order");
         $res = $this->db->fetchAll();
         //  executeFetchAll
+        return $res;
+    }
+
+    /**
+     * Show all products
+     * @param string $orderby  Which column to order by, default: 'name'
+     * @param string $order  ASC or DESC, default: 'ASC'
+     * @param $limit string
+     * @var array $res      The resultset
+     * @return $res
+     */
+    public function showProducts($orderby = 'name', $order = 'ASC', $limit = '30')
+    {
+
+        // $this->db->execute("SELECT * FROM VProduct ORDER BY $orderby $order
+        // LIMIT $limit");
+        // $res = $this->db->fetchAll();
+        $sql = "SELECT
+        	P.id,
+        	P.name,
+            P.description,
+        	P.image,
+            P.recommended,
+            GROUP_CONCAT(DISTINCT category) AS category,
+        	P.price,
+            Offer.new_price,
+        	I.items
+        FROM Product AS P
+        	LEFT OUTER JOIN Prod2Cat AS P2C
+        		ON P.id = P2C.prod_id
+        	LEFT OUTER JOIN ProdCategory AS PC
+        		ON PC.id = P2C.cat_id
+        	LEFT OUTER JOIN Offer
+        		ON P.id = Offer.product
+        	LEFT OUTER JOIN Inventory AS I
+        		ON P.id = I.prod_id
+        GROUP BY P.id
+        ORDER BY P.name
+        ;";
+        // $res = $this->db->executeFetchAll($sql);
+        $res = $this->db->executeFetchAll($sql);
+        return $res;
+    }
+
+    /**
+     * Get most sold products
+     * @param $limit string number of rows wanted
+     * @var array $res      The resultset
+     * @return $res
+     */
+    public function getMostSoldProduct($limit = '1')
+    {
+        $this->db->execute("SELECT R.product,
+            R.items,
+            SUM(R.items) AS sold,
+            P.description,
+            P.name,
+            P.image
+        FROM `OrderRow`AS R
+        LEFT OUTER JOIN Product AS P
+        ON R.product = P.id
+        GROUP BY product
+        ORDER BY sold DESC
+        LIMIT $limit;");
+
+        $res = $this->db->fetchAll();
+
+        return $res;
+    }
+
+    /**
+     * Get recommended products
+     * @param string $orderby  Which column to order by, default: 'name'
+     * @param string $order  ASC or DESC, default: 'ASC'
+     * @var array $res      The resultset
+     * @return $res
+     */
+    public function getRecommended()
+    {
+        $this->db->execute("SELECT
+        	P.id,
+        	P.name,
+            P.description,
+        	P.image,
+            P.recommended,
+            GROUP_CONCAT(DISTINCT category) AS category,
+        	P.price,
+            Offer.new_price,
+        	I.items
+        FROM Product AS P
+        	LEFT OUTER JOIN Prod2Cat AS P2C
+        		ON P.id = P2C.prod_id
+        	LEFT OUTER JOIN ProdCategory AS PC
+        		ON PC.id = P2C.cat_id
+        	LEFT OUTER JOIN Offer
+        		ON P.id = Offer.product
+        	LEFT OUTER JOIN Inventory AS I
+        		ON P.id = I.prod_id
+            WHERE recommended = 1
+        GROUP BY P.id
+        ORDER BY P.name
+        ;");
+
+        $res = $this->db->fetchAll();
+
         return $res;
     }
 }

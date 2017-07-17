@@ -22,7 +22,7 @@ if ($new_email != null && $pass != null) {
     }
 } else {
         $status = "Alla fält måste fyllas i.";
-    }
+}
 
 ?>
 

@@ -1,18 +1,28 @@
 <?php
+/**
+ * Class for handling administration pages
+ *
+ *
+ */
 
 namespace Mag\Admin;
 
 /**
  * Class for handling administration pages
- * @param $db string The name of the database
- * @param $app string The app object
+ * @var $db string The name of the database
+ * @var $app string The app object
  * @return void
  */
 class Admin
 {
-    // private $db;
-    // public $hello = "hello";
+    /**
+    * @var $db string The name of the database
+    */
     public $db;
+
+    /**
+    * @var $app string The name of the database
+    */
     public $app;
 
     /**
@@ -29,7 +39,7 @@ class Admin
 
     /**
      * Sets app
-     *
+     * @param $app The app object
      * @return void
      */
     public function setApp($app)
@@ -223,22 +233,46 @@ EOD;
      * Show all products
      * @param string $orderby  Which column to order by, default: 'name'
      * @param string $order  ASC or DESC, default: 'ASC'
+     * @param $limit string
      * @var array $res      The resultset
      * @return $res
      */
     public function showProducts($orderby = 'name', $order = 'ASC', $limit = '30')
     {
-        $this->db->execute("SELECT * FROM VProduct ORDER BY $orderby $order
-        LIMIT $limit");
-        $res = $this->db->fetchAll();
-        //  executeFetchAll
+
+        // $this->db->execute("SELECT * FROM VProduct ORDER BY $orderby $order
+        // LIMIT $limit");
+        // $res = $this->db->fetchAll();
+        $sql = "SELECT
+        	P.id,
+        	P.name,
+            P.description,
+        	P.image,
+            P.recommended,
+            GROUP_CONCAT(DISTINCT category) AS category,
+        	P.price,
+            Offer.new_price,
+        	I.items
+        FROM Product AS P
+        	LEFT OUTER JOIN Prod2Cat AS P2C
+        		ON P.id = P2C.prod_id
+        	LEFT OUTER JOIN ProdCategory AS PC
+        		ON PC.id = P2C.cat_id
+        	LEFT OUTER JOIN Offer
+        		ON P.id = Offer.product
+        	LEFT OUTER JOIN Inventory AS I
+        		ON P.id = I.prod_id
+        GROUP BY P.id
+        ORDER BY P.name
+        ;";
+        // $res = $this->db->executeFetchAll($sql);
+        $res = $this->db->executeFetchAll($sql);
         return $res;
     }
 
     /**
      * Get most sold products
-     * @param string $orderby  Which column to order by, default: 'name'
-     * @param string $order  ASC or DESC, default: 'ASC'
+     * @param $limit string number of rows wanted
      * @var array $res      The resultset
      * @return $res
      */
@@ -256,6 +290,44 @@ EOD;
         GROUP BY product
         ORDER BY sold DESC
         LIMIT $limit;");
+
+        $res = $this->db->fetchAll();
+
+        return $res;
+    }
+
+    /**
+     * Get recommended products
+     * @param string $orderby  Which column to order by, default: 'name'
+     * @param string $order  ASC or DESC, default: 'ASC'
+     * @var array $res      The resultset
+     * @return $res
+     */
+    public function getRecommended()
+    {
+        $this->db->execute("SELECT
+        	P.id,
+        	P.name,
+            P.description,
+        	P.image,
+            P.recommended,
+            GROUP_CONCAT(DISTINCT category) AS category,
+        	P.price,
+            Offer.new_price,
+        	I.items
+        FROM Product AS P
+        	LEFT OUTER JOIN Prod2Cat AS P2C
+        		ON P.id = P2C.prod_id
+        	LEFT OUTER JOIN ProdCategory AS PC
+        		ON PC.id = P2C.cat_id
+        	LEFT OUTER JOIN Offer
+        		ON P.id = Offer.product
+        	LEFT OUTER JOIN Inventory AS I
+        		ON P.id = I.prod_id
+            WHERE recommended = 1
+        GROUP BY P.id
+        ORDER BY P.name
+        ;");
 
         $res = $this->db->fetchAll();
 

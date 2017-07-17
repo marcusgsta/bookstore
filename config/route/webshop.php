@@ -20,8 +20,9 @@ $app->router->add(
     "webshop",
     function () use ($app) {
 
-        $sql = "SELECT * FROM VProduct;";
-        $result = $app->db->executeFetchAll($sql);
+        // $sql = "SELECT * FROM VProduct;";
+        // $result = $app->db->executeFetchAll($sql);
+        $result = $app->admin->showProducts();
 
         $app->renderWebShopPage("Visa alla varor", "webshop/show-all", $result);
     }
@@ -31,8 +32,9 @@ $app->router->add(
     "webshop/show-all",
     function () use ($app) {
 
-        $sql = "SELECT * FROM VProduct;";
-        $result = $app->db->executeFetchAll($sql);
+        // $sql = "SELECT * FROM VProduct;";
+        // $result = $app->db->executeFetchAll($sql);
+        $result = $app->admin->showProducts();
 
         $app->renderWebShopPage("Visa alla varor", "webshop/show-all", $result);
     }

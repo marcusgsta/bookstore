@@ -6,16 +6,22 @@ namespace Mag\Calendar;
 
 /**
 *   Month class
-*   @var string $html html output
-*   @var array $nrOfDays private  number of days in a certain month
+*   @var $html string html output
+*   @var $nrOfDays array private  number of days in a certain month
 */
 class Month
 {
+    /**
+    *   @var $html string html output
+    */
     public $html = "";
     // public $days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     //                 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
     //                 21, 22, 23, 24, 25, 26, 28, 29, 30, 31];
 
+    /**
+    *   @var $nrOfDays array private  number of days in a certain month
+    */
     private $nrOfDays = [];
     // public $months = {
     //     "january" : 31,

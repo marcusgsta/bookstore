@@ -31,7 +31,7 @@ if ($search != "") {
     <?php foreach ($search_results as $search_result) : ?>
 
     <tr>
-        <td><?= esc($search_result->name); ?></td>
+        <td class="name"><?= esc($search_result->name); ?></td>
         <td><div class="scrollable"><?= esc($search_result->description); ?></div></td>
         <td><img src="image/webshop/<?=esc($search_result->image)?>?w=150" class="productImage" title="Image of <?=esc($search_result->name)?>"></td>
         <td><?= esc($search_result->category); ?></td>
@@ -69,7 +69,7 @@ $result = $data;
     $id++;
 ?>
     <tr>
-        <td><?= esc($row->name); ?></td>
+        <td class="name"><?= esc($row->name); ?></td>
         <td><div class="scrollable"><?= esc($row->description); ?></div></td>
         <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></td>
         <td><?= esc($row->category); ?></td>

@@ -151,7 +151,8 @@ SELECT
    *,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-FROM VBlog
+-- FROM VBlog
+FROM Content
 WHERE
     type = ?
     AND (deleted IS NULL OR deleted > NOW())
@@ -180,7 +181,7 @@ SELECT
    *,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
    DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-FROM content
+FROM Content
 WHERE
     slug = ?
     AND type = ?

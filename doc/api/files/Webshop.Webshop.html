@@ -21,7 +21,55 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
@@ -96,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-681537966"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-928271425"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-681537966" class="accordion-body collapse in">
+            <div id="namespace-928271425" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-278215042"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2075967229"></a>
                                 <a href="../namespaces/Mag.html" style="margin-left: 30px; padding-left: 0">Mag</a>
             </div>
-            <div id="namespace-278215042" class="accordion-body collapse ">
+            <div id="namespace-2075967229" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-68858976"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-105570514"></a>
                                 <a href="../namespaces/Mag.Access.html" style="margin-left: 30px; padding-left: 0">Access</a>
             </div>
-            <div id="namespace-68858976" class="accordion-body collapse ">
+            <div id="namespace-105570514" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -132,10 +180,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2073415667"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1963545882"></a>
                                 <a href="../namespaces/Mag.Admin.html" style="margin-left: 30px; padding-left: 0">Admin</a>
             </div>
-            <div id="namespace-2073415667" class="accordion-body collapse ">
+            <div id="namespace-1963545882" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -150,10 +198,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2129893172"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1245866495"></a>
                                 <a href="../namespaces/Mag.App.html" style="margin-left: 30px; padding-left: 0">App</a>
             </div>
-            <div id="namespace-2129893172" class="accordion-body collapse ">
+            <div id="namespace-1245866495" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -168,10 +216,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-214716843"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-538333971"></a>
                                 <a href="../namespaces/Mag.Calendar.html" style="margin-left: 30px; padding-left: 0">Calendar</a>
             </div>
-            <div id="namespace-214716843" class="accordion-body collapse ">
+            <div id="namespace-538333971" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -188,10 +236,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1515055162"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1020245745"></a>
                                 <a href="../namespaces/Mag.Cookie.html" style="margin-left: 30px; padding-left: 0">Cookie</a>
             </div>
-            <div id="namespace-1515055162" class="accordion-body collapse ">
+            <div id="namespace-1020245745" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -206,10 +254,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-111300420"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-721521016"></a>
                                 <a href="../namespaces/Mag.Navbar.html" style="margin-left: 30px; padding-left: 0">Navbar</a>
             </div>
-            <div id="namespace-111300420" class="accordion-body collapse ">
+            <div id="namespace-721521016" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -224,10 +272,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1403929498"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-412758610"></a>
                                 <a href="../namespaces/Mag.Session.html" style="margin-left: 30px; padding-left: 0">Session</a>
             </div>
-            <div id="namespace-1403929498" class="accordion-body collapse ">
+            <div id="namespace-412758610" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -242,10 +290,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2075784131"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-377509496"></a>
                                 <a href="../namespaces/Mag.Webshop.html" style="margin-left: 30px; padding-left: 0">Webshop</a>
             </div>
-            <div id="namespace-2075784131" class="accordion-body collapse ">
+            <div id="namespace-377509496" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -278,36 +326,38 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content namespace">
+                <div class="span8 content file">
                     <nav>
-                                                <a href="../namespaces/Mag.html">\Mag</a>
-                                            </nav>
-                    <h1><small>\Mag</small>Navbar</h1>
+                                                                    </nav>
 
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>Webshop</small>Webshop.php</h1>
+                    <p><em>Class Webshop for handling webshop</em></p>
                     
+
                     
                     
                                         <h2>Classes</h2>
                     <table class="table table-hover">
                                             <tr>
-                            <td><a href="../classes/Mag.Navbar.Navbar.html">Navbar</a></td>
-                            <td><em>Navbar class
-  creates html for navbar</em></td>
+                            <td><a href="../classes/Mag.Webshop.Webshop.html">Webshop</a></td>
+                            <td><em>A Webshop class for everything related to the webshop.</em></td>
                         </tr>
                                         </table>
                                     </div>
 
                 <aside class="span4 detailsbar">
                     <dl>
-                        <dt>Namespace hierarchy</dt>
-                        <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                                                                                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/Mag.html">\Mag</a></div>
-                                                                                        <div class="namespace-wrapper">\Mag\Navbar</div>
-                        </dd>
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                        
+                        
                     </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                                            </table>
+
                 </aside>
             </div>
 
@@ -315,6 +365,16 @@
             
         </div>
     </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Webshop/Webshop.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
 
     <footer class="row-fluid">
         <section class="span10 offset2">

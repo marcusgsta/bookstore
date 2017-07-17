@@ -1,4 +1,8 @@
 <?php
+/**
+*   Useful functions
+*
+*/
 
 /**
  * Get value from GET variable or return default value.

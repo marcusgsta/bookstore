@@ -1,5 +1,11 @@
 <?php
+/**
+ * Class for handling access and login
+ *
+ */
+
 namespace Mag\Access;
+
 /**
  * Class for handling access and login
  *
@@ -19,8 +25,6 @@ class Access
     public function __construct($database)
     {
 
-        $this->setDatabase($database);
-
         // try {
         //     $db = new PDO($dsn);
         //     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -28,7 +32,7 @@ class Access
         // } catch (PDOException $e) {
         //     echo "Failed to connect to the database using DSN:<br>$dsn<br>";
         // }
-
+        $this->setDatabase($database);
     }
 
     /**
@@ -51,6 +55,21 @@ class Access
         // $stmt = $this->db->execute("INSERT into users (name, pass) VALUES ('$user', '$pass')");
         // $stmt->execute();
         $this->db->execute("INSERT into users (name, pass) VALUES ('$user', '$pass')");
+    }
+
+    /**
+     * Gets a user's email
+     * @param $user string The name of the user
+     *
+     * @return email string
+     */
+    public function getUsersEmail($user)
+    {
+        // $stmt = $this->db->execute("INSERT into users (name, pass) VALUES ('$user', '$pass')");
+        // $stmt->execute();
+        $this->db->execute("SELECT email FROM users WHERE name='$user'");
+        $res = $this->db->FetchOne();
+        return $res->email;
     }
 
     /**
@@ -79,7 +98,6 @@ class Access
     public function changePassword($user, $pass)
     {
         $this->db->execute("UPDATE users SET pass='$pass' WHERE name='$user'");
-
     }
 
     /**
@@ -97,6 +115,17 @@ class Access
 
         // $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return !$row ? false : true;
+    }
+
+    /**
+     * Changes the email for a user
+     * @param $user string The usr to change the password for
+     * @param $email string The email to change to
+     * @return void
+     */
+    public function changeEmail($user, $email)
+    {
+        $this->db->execute("UPDATE users SET email='$email' WHERE name='$user'");
     }
 }
 

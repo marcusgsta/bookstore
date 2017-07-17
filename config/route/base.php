@@ -8,7 +8,8 @@ SELECT
     SUBSTR(data, 1, 100) AS extract,
     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%dT%TZ') AS published_iso8601,
     DATE_FORMAT(COALESCE(updated, published), '%Y-%m-%d') AS published
-FROM VBlog
+-- FROM vblog
+FROM Content
 WHERE
     type = ?
     AND (deleted IS NULL OR deleted > NOW())
@@ -41,9 +42,10 @@ EOD;
         $content[0]->offer = $offer;
 
         // Get recommended products
-        $sql = "SELECT * FROM VProduct
-        WHERE recommended = 1";
-        $recommended = $app->db->executeFetchAll($sql);
+        $recommended = $app->admin->getRecommended();
+        // $sql = "SELECT * FROM VProduct
+        // WHERE recommended = 1";
+        // $recommended = $app->db->executeFetchAll($sql);
 
         $content[0]->recommended = $recommended;
 

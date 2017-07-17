@@ -72,7 +72,7 @@ $offers = $products[0]->offers;
         <td><?=esc($offer->discount);?></td>
         <td><?=esc($offer->new_price);?></td>
         <td><?php
-        if ($offer->deleted != NULL) {
+        if ($offer->deleted != null) {
                 echo esc($offer->deleted);
         } else {
                 echo "<a href='?remove=$offer->id'>Ta bort erbjudande</a>";
