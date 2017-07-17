@@ -12,3 +12,8 @@ v1.0.3 (2017-07-13)
 -------------------------
 Inserted products, and changed database tables.
 Improved sql-queries and adjusted forms.
+
+
+v1.0.4 (2017-07-17)
+-------------------------
+.Added phpunit tests, various bugfixes, validation error fixes and changes.
