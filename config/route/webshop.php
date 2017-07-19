@@ -34,7 +34,12 @@ $app->router->add(
 
         // $sql = "SELECT * FROM VProduct;";
         // $result = $app->db->executeFetchAll($sql);
-        $result = $app->admin->showProducts();
+        $hits = isset($_GET['hits']) ? $_GET['hits'] : 10;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        $result = $app->admin->showProducts($orderBy, $order, $hits, $page);
+
+        // $result = $app->admin->showProducts();
 
         $app->renderWebShopPage("Visa alla varor", "webshop/show-all", $result);
     }

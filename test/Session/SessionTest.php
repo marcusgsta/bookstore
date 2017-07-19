@@ -28,6 +28,4 @@ class SessionTest extends \PHPUnit_Framework_TestCase
         $_SESSION['keyOne'] = 1;
         $this->assertEquals(var_dump($_SESSION), $session->dump());
     }
-
-
 }

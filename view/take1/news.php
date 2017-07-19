@@ -10,7 +10,7 @@ if (!$data) {
 ?>
 <div class="container">
 
-<article>
+<article class="newspage">
     <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
 <img src="image/books_logo.png?w=200" alt="Böcker" class="left">
 

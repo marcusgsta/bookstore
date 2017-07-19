@@ -14,7 +14,19 @@ $app->router->add(
             die("Not valid input for sorting.");
         }
 
-        $result = $app->admin->showProducts($orderBy, $order);
+
+
+        // if (!isset($_GET['hits']) && !isset($_GET['page'])) {
+        //     $_GET['hits'] = 8;
+        //     $_GET['page'] = 1;
+        // }
+
+        $hits = isset($_GET['hits']) ? $_GET['hits'] : 8;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        $result = $app->admin->showProducts($orderBy, $order, $hits, $page);
+
+
 
         // Check to see if a product has been added to cart
         $productId = getGet("add") ?: "";

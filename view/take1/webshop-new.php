@@ -10,6 +10,7 @@ if ($search != "") {
     $search_results = $app->admin->searchProducts($search);
 }
 
+
 ?>
 <form class="" action="" method="get">
     <input type="text" name="search" value="">
@@ -17,6 +18,7 @@ if ($search != "") {
 </form>
 
     <?php $defaultRoute = "?route=show-all-sort&" ?>
+
     <?php if (isset($search_results) and $search_results != "") :?>
     <table>
         <tr>
@@ -53,8 +55,17 @@ if (!$data) {
     return;
 }
 $result = $data;
+
+$hits = isset($_GET['hits']) ? $_GET['hits'] : 8;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$min = 0;
 ?>
 <h2>Alla produkter</h2>
+<?php
+    echo $app->admin->getHitsPerPage(array(2, 4, 8));
+
+?>
+
 <table>
     <tr>
         <th>Namn <?= $app->admin->orderby("name", $defaultRoute) ?></th>
@@ -82,3 +93,10 @@ $result = $data;
 
 <?php endforeach; ?>
 </table>
+<?php
+$rows = $result[0]->rows;
+
+
+$max = ceil($rows / $hits);
+
+ echo $app->admin->getPageNavigation($page, $max); ?>

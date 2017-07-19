@@ -229,6 +229,65 @@ EOD;
         return $res;
     }
 
+        /**
+     * Create navigation among pages.
+     *
+     * @param integer $hits per page.
+     * @param integer $page current page.
+     * @param integer $max number of pages.
+     * @param integer $min is the first page number, usually 0 or 1.
+     * @return string as a link to this page.
+     */
+    public function getPageNavigation($page, $max, $min = 1)
+    {
+        $nav  = "<a href='" . $this->getQueryString(array('page' => $min)) . "'>&lt;&lt;</a> ";
+        $nav .= "<a href='" . $this->getQueryString(array('page' => ($page > $min ? $page - 1 : $min) )) . "'>&lt;</a> ";
+
+        for ($i=$min; $i<=$max; $i++) {
+            $nav .= "<a href='" . $this->getQueryString(array('page' => $i)) . "'>$i</a> ";
+        }
+
+        $nav .= "<a href='" . $this->getQueryString(array('page' => ($page < $max ? $page + 1 : $max) )) . "'>&gt;</a> ";
+        $nav .= "<a href='" . $this->getQueryString(array('page' => $max)) . "'>&gt;&gt;</a> ";
+        return $nav;
+    }
+
+
+        /**
+     * Create links for hits per page.
+     *
+     * @param array $hits a list of hits-options to display.
+     * @return string as a link to this page.
+     */
+    public function getHitsPerPage($hits)
+    {
+        $nav = "Träffar per sida: ";
+        foreach ($hits as $val) {
+            $nav .= "<a href='" . $this->getQueryString(array('hits' => $val)) . "'>$val</a> ";
+        }
+        return $nav;
+    }
+
+        /**
+     * Use the current querystring as base, modify it according to $options and return the modified query string.
+     *
+     * @param array $options to set/change.
+     * @param string $prepend this to the resulting query string
+     * @return string with an updated query string.
+     */
+    public function getQueryString($options, $prepend = '?')
+    {
+        // parse query string into array
+        $query = array();
+        parse_str($_SERVER['QUERY_STRING'], $query);
+
+        // Modify the existing query string with new options
+        $query = array_merge($query, $options);
+
+        // Return the modified querystring
+        return $prepend . http_build_query($query);
+    }
+
     /**
      * Show all products
      * @param string $orderby  Which column to order by, default: 'name'
@@ -237,14 +296,16 @@ EOD;
      * @var array $res      The resultset
      * @return $res
      */
-    public function showProducts($orderby = 'name', $order = 'ASC', $limit = '30')
+    public function showProducts($orderby = 'name', $order = 'ASC', $limit = 10, $page = 1)
     {
-
+        // $sql = "SELECT * FROM VMovie LIMIT $hits OFFSET " . (($page - 1) * $hits);
+//SELECT * FROM VMovie LIMIT 2 OFFSET 2
         // $this->db->execute("SELECT * FROM VProduct ORDER BY $orderby $order
         // LIMIT $limit");
         // $res = $this->db->fetchAll();
         $sql = "SELECT
         	P.id,
+            (select COUNT(id) FROM Product) as rows,
         	P.name,
             P.description,
         	P.image,
@@ -263,8 +324,9 @@ EOD;
         	LEFT OUTER JOIN Inventory AS I
         		ON P.id = I.prod_id
         GROUP BY P.id
-        ORDER BY P.name
-        ;";
+        ORDER BY $orderby $order
+        LIMIT $limit
+        OFFSET " . (($page - 1) * $limit);
         // $res = $this->db->executeFetchAll($sql);
         $res = $this->db->executeFetchAll($sql);
         return $res;

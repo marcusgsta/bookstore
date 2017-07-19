@@ -24,7 +24,7 @@
 /*-------------------------------------------------------------------*/
 
 @navbarColor: #333;
-@BGColor: #fff;
+@BGColor: #fff6c5;
 @footerColor: #333;
 
 @textColor: #333;
@@ -99,7 +99,7 @@ body {
     box-sizing: border-box;         /* Opera/IE 8+ */
     color: @textColor;
 
-	.RoundedSquare;
+	.RoundedSquare(8px);
 }
 
 img.gravatar {
@@ -129,10 +129,26 @@ body::-webkit-scrollbar,
 .home {
     display:flex;
     flex-flow: row wrap;
+    align-items: flex-start;
+    align-items: center;
+    // flex-direction: column;     /* stack flex items vertically */
+    justify-content: center;    /* center items vertically, in this case */
 }
 
-.home article {
-    width: 45%;
+article {
+    background-color: #FFF6C5;
+    // .RoundedSquare;
+    // border: 8px solid #FF712C;
+    // box-shadow: 0 0 8px 8px rgb(216, 141, 104);
+    margin: 12px;
+    width: 100%;
+    text-align:center;
+}
+
+.latest_products {
+    .scrollable {
+        display:none;
+    }
 }
 
 .news,
@@ -140,7 +156,7 @@ body::-webkit-scrollbar,
 .most_sold,
 .this_week,
 .recommended_products {
-    border: 1px solid #333;
+    // border: 1px solid #333;
     padding: 8px;
 }
 
@@ -148,6 +164,21 @@ body::-webkit-scrollbar,
     font-style: italic;
     font-size: 1.3em;
 }
+
+/*--------------------------------------------------------------------
+
+.news
+
+/*-------------------------------------------------------------------*/
+
+
+
+article.newspage {
+    width: 100%;
+    border: 0;
+    box-shadow: 0 0 #fff;
+}
+
 /*--------------------------------------------------------------------
 
 3. Text
@@ -156,17 +187,6 @@ body::-webkit-scrollbar,
 
 .line {
 	text-decoration: line-through;
-}
-
-
-/*--------------------------------------------------------------------
-
-4. Main content
-
-/*-------------------------------------------------------------------*/
-
-.container img[alt="BTH-logo"] {
-	float:right;
 }
 
 
@@ -420,30 +440,6 @@ input:focus:invalid {
 	outline: none;
 }
 
-/*-------Textfilter-------------*/
-
-.textfilter h3 {
-	font-weight: 700;
-	margin: 0.8em 0 0.8em 0;
-}
-.input, .output {
-	padding: 10px;
-	background-color: #113c07;
-	background-color: rgba(17, 60, 7, 0.47);
-   -moz-box-shadow:    inset 0 0 10px #000000;
-   -webkit-box-shadow: inset 0 0 10px #000000;
-   box-shadow:         inset 0 0 10px #000000;
-}
-.input {
-	border: 1px solid black;
-	border-style: inset;
-	margin-bottom: 10px;
-}
-
-.output {
-	border: 1px solid black;
-	border-style: inset;
-}
 
 strong {
 	font-weight: 700;
@@ -525,36 +521,23 @@ td .scrollable {
 
 /*----------------- MEDIA QUERIES -------------*/
 
-@media screen and (max-width: 805px) {
-	.navbar0 {
-		display: none;
-		}
-	.container {
-		width: 100%;
-	}
-	body {
-		width: 100%;
-	}
+
+@media screen and (min-width: 850px) {
+	article {
+        width: 40%;
+    }
 }
 
-@media screen and (max-width: 480px) {
-	.bth_logo.right,
-	.portratt.right {
-		display: block;
-		float: none;
-		margin: 0 auto;
-	}
-}
 
-@media screen and (max-width: 635px) {
-	body.default {
-	/*body {*/
-		margin-top: 80px;
-	}
-}
 
-@media screen and (max-width: 450px) {
-	body.content_pages {
-		margin-top: 80px;
-	}
+@media screen and (min-width: 1250px) {
+	article {
+        width: 30%;
+    }
 }
+//
+// @media screen and (max-width: 450px) {
+// 	body.content_pages {
+// 		margin-top: 80px;
+// 	}
+// }

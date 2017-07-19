@@ -21,7 +21,7 @@ $recommended = $resultset[0]->recommended;
 
 <article class="news">
 
-    <h1>Hem</h1>
+    <h1>Välkommmen</h1>
     <p>De senaste nyheterna:</p>
 
 <?php foreach ($resultset as $row) : ?>
@@ -62,33 +62,7 @@ $recommended = $resultset[0]->recommended;
 
 
 </article>
-<article class="most_sold">
-    <h2>Mest sålda produkt</h2>
-    <table>
-        <tr>
-            <?php foreach ($mostSold as $row) : ?>
-            <td class="name"><?= esc($row->name);?> </td>
-            <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></td>
-            <td><?=esc($row->sold) . " stk sålda!";?></td>
-        <?php endforeach; ?>
-</tr>
-</table>
 
-</article>
-<article class="this_week">
-    <h2>Veckans erbjudande</h2>
-
-            <?php foreach ($offers as $offer) : ?>
-
-            <div class="name"><?=esc($offer->name); ?></div>
-            <div class="scrollable"><?=esc($offer->description); ?></div>
-            <div><?=esc($offer->new_price); ?> kr</div>
-            <div><?=esc($offer->discount); ?> % rabatt</div>
-
-        <?php endforeach ?>
-
-
-</article>
 <article class="recommended_products">
     <h2>Rekommenderade produkter</h2>
 
@@ -110,4 +84,31 @@ $recommended = $resultset[0]->recommended;
 
 
 </article>
+
+<article class="most_sold">
+    <h2>Mest sålda produkt</h2>
+
+            <?php foreach ($mostSold as $row) : ?>
+            <div class="name"><?= esc($row->name);?> </div>
+            <img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>">
+            <?=esc($row->sold) . " stk sålda!";?>
+        <?php endforeach; ?>
+
+
+</article>
+<article class="this_week">
+    <h2>Veckans erbjudande</h2>
+
+            <?php foreach ($offers as $offer) : ?>
+
+            <div class="name"><?=esc($offer->name); ?></div>
+            <div class="scrollable"><?=esc($offer->description); ?></div>
+            <div><?=esc($offer->new_price); ?> kr</div>
+            <div><?=esc($offer->discount); ?> % rabatt</div>
+
+        <?php endforeach ?>
+
+
+</article>
+
 </div>
