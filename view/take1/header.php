@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="sv-se">
 <meta charset="utf-8">
-<link rel="icon" href="image/books_logo.png?w=48">
+<link rel="icon" href="image/favicon.ico">
+<script src="https://use.typekit.net/kix0krc.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
 
 <title><?= $title ?></title>
 

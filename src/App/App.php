@@ -74,7 +74,7 @@ class App
     */
     public function renderWebShopPage($title, $page, $data = null)
     {
-        $this->view->add("content/header", ["title" => $title]);
+        $this->view->add("take1/header", ["title" => $title]);
         $this->view->add("webshop/navbar");
         $this->view->add($page, ["data" => $data]);
         $this->view->add("take1/footer");

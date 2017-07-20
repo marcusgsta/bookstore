@@ -1,6 +1,6 @@
 <div class="container">
     <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
-<img src="image/books_logo.png?w=200" alt="Böcker" class="left">
+<img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
 
 <?php
 
@@ -21,14 +21,14 @@ $recommended = $resultset[0]->recommended;
 
 <article class="news">
 
-    <h1>Välkommmen</h1>
+    <h1>Välkommen</h1>
     <p>De senaste nyheterna:</p>
 
 <?php foreach ($resultset as $row) : ?>
 <section>
     <header>
         <h2><a href="newspost?route=<?= esc($row->slug) ?>"><?= esc($row->title) ?></a></h2>
-        <p><i>Published: <time datetime="<?= esc($row->published_iso8601) ?>" pubdate><?= esc($row->published) ?></time></i></p>
+        <p><i><time datetime="<?= esc($row->published_iso8601) ?>" pubdate><?= esc($row->published) ?></time></i></p>
     </header>
     <?php
     $row->extract = esc($row->extract);
@@ -48,7 +48,7 @@ $recommended = $resultset[0]->recommended;
         <?php foreach ($lastProducts as $row) :
         ?>
 
-                <div class="name"><?= esc($row->name); ?></div>
+
                 <div class="scrollable"><?= esc($row->description); ?></div>
                 <div><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></div>
 
@@ -56,7 +56,7 @@ $recommended = $resultset[0]->recommended;
                 $price = isset($row->new_price) ? $row->new_price . " (<span class='line'>$row->price</span>)" : $row->price;
                 echo $price; ?></div>
 
-                <div><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
+                <div class="add_to_cart"><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
 
         <?php endforeach; ?>
 
@@ -69,7 +69,7 @@ $recommended = $resultset[0]->recommended;
         <?php foreach ($recommended as $row) :
         ?>
 
-                <div class="name"><?= esc($row->name); ?></div>
+
 
                 <div><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></div>
 
@@ -77,7 +77,7 @@ $recommended = $resultset[0]->recommended;
                 $price = isset($row->new_price) ? $row->new_price . " (<span class='line'>$row->price</span>)" : $row->price;
                 echo $price; ?></div>
 
-                <div><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
+                <div class="add_to_cart"><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
 
 
         <?php endforeach; ?>
@@ -89,7 +89,7 @@ $recommended = $resultset[0]->recommended;
     <h2>Mest sålda produkt</h2>
 
             <?php foreach ($mostSold as $row) : ?>
-            <div class="name"><?= esc($row->name);?> </div>
+
             <img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>">
             <?=esc($row->sold) . " stk sålda!";?>
         <?php endforeach; ?>
@@ -101,7 +101,8 @@ $recommended = $resultset[0]->recommended;
 
             <?php foreach ($offers as $offer) : ?>
 
-            <div class="name"><?=esc($offer->name); ?></div>
+            <img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>">
+
             <div class="scrollable"><?=esc($offer->description); ?></div>
             <div><?=esc($offer->new_price); ?> kr</div>
             <div><?=esc($offer->discount); ?> % rabatt</div>
