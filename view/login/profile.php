@@ -19,7 +19,9 @@ if ($grav_link != null) {
     $grav_link = $res->gravatar;
 ?>
 <div class="container">
-
+    <a href="home">
+    <img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
+    </a>
 <h1>Välkommen <?=$user;?></h1>
 <img class="gravatar right" src="<?=$grav_link;?>" alt="Gravatar">
 
@@ -39,8 +41,5 @@ if ($grav_link != null) {
     <input type="submit" name="submitForm" value="Sänd">
 
 </form>
-
-<p>Cookien 'my_cookie' innehåller <?=$app->cookie->get('my_cookie')?>.</p>
-
 
 <p><a href="logout">Logga ut</a></p>

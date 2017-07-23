@@ -10,10 +10,12 @@ if (!$data) {
 ?>
 <div class="container">
 
-<article class="newspage">
-    <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
-<img src="image/books_logo.png?w=200" alt="Böcker" class="left">
 
+    <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
+    <a href="home">
+    <img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
+    </a>
+    <article class="newspage">
     <h1>Nyheter</h1>
     <p>Här kommer senaste nyheter angående böcker</p>
 

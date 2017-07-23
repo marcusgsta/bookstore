@@ -1,7 +1,8 @@
 <div class="container">
     <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
+    <a href="">
 <img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
-
+</a>
 <?php
 
 if (!$data) {
@@ -50,13 +51,16 @@ $recommended = $resultset[0]->recommended;
 
 
                 <div class="scrollable"><?= esc($row->description); ?></div>
+                <div class="clear">
+
+                </div>
                 <div><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></div>
 
-                <div><?php
-                $price = isset($row->new_price) ? $row->new_price . " (<span class='line'>$row->price</span>)" : $row->price;
-                echo $price; ?></div>
-
-                <div class="add_to_cart"><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
+                <div class="add_to_cart">
+                    <a href="webshop-new?add=<?= esc($row->id);?>">
+                    <img src="image/webshop/add_to_cart.png?w=40" title="Lägg i varukorg" alt="Lägg i varukorg">
+                </a>
+                </div>
 
         <?php endforeach; ?>
 
@@ -70,15 +74,17 @@ $recommended = $resultset[0]->recommended;
         ?>
 
 
+        <div class="clear">
 
+        </div>
                 <div><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></div>
 
-                <div><?php
-                $price = isset($row->new_price) ? $row->new_price . " (<span class='line'>$row->price</span>)" : $row->price;
-                echo $price; ?></div>
 
-                <div class="add_to_cart"><a href="webshop-new?add=<?= esc($row->id);?>">Lägg till i varukorg</a></div>
-
+                <div class="add_to_cart">
+                    <a href="webshop-new?add=<?= esc($row->id);?>">
+                    <img src="image/webshop/add_to_cart.png?w=40" title="Lägg i varukorg" alt="Lägg i varukorg">
+                </a>
+                </div>
 
         <?php endforeach; ?>
 
@@ -105,7 +111,7 @@ $recommended = $resultset[0]->recommended;
 
             <div class="scrollable"><?=esc($offer->description); ?></div>
             <div><?=esc($offer->new_price); ?> kr</div>
-            <div><?=esc($offer->discount); ?> % rabatt</div>
+            <div><?=esc($offer->discount); ?>% rabatt</div>
 
         <?php endforeach ?>
 

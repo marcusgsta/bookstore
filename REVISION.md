@@ -16,4 +16,8 @@ Improved sql-queries and adjusted forms.
 
 v1.0.4 (2017-07-17)
 -------------------------
-.Added phpunit tests, various bugfixes, validation error fixes and changes.
+Added phpunit tests, various bugfixes, validation error fixes and changes.
+
+v1.0.6 (2017-07-20)
+-------------------------
+Added responsive css-menu.

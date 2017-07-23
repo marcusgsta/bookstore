@@ -58,6 +58,9 @@ if (hasKeyPost("doSave")) {
     ?>
 
 <div class="container edit-content">
+    <a href="../home">
+    <img src="../image/books_logo.png?w=100" alt="Böcker" class="books left">
+    </a>
 <h1>Redigera innehåll</h1>
 
 

@@ -89,6 +89,9 @@ if (hasKeyPost("doSave")) {
 ?>
 
 <div class="container edit-content">
+    <a href="../home">
+    <img src="../image/books_logo.png?w=100" alt="Böcker" class="books left">
+    </a>
 <h1>Redigera produkt</h1>
 
 <form method="post">
@@ -102,7 +105,7 @@ if (hasKeyPost("doSave")) {
         </label>
     </p>
     <p>
-        <label>Beskrivning:<br>        
+        <label>Beskrivning:<br>
         <textarea name="productDescription" rows="8" cols="80"><?= isset($product->description) ? esc($product->description) : '' ?></textarea>
         </label>
     </p>

@@ -8,6 +8,9 @@ if (!$resultset) {
 ?>
 
 <div class="container pages">
+    <a href="../home">
+    <img src="../image/books_logo.png?w=100" alt="Böcker" class="books left">
+    </a>
 <h1>Alla sidor</h1>
 
 <table>

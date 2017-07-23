@@ -34,7 +34,9 @@ $accounts = $app->admin->showAccounts($orderby, $order);
 ?>
 
 <div class="container">
-
+    <a href="home">
+    <img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
+    </a>
 <h1>Admin</h1>
 
 <?php if (isset($add_message)) {

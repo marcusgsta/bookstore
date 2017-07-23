@@ -23,7 +23,7 @@
 
 /*-------------------------------------------------------------------*/
 
-@navbarColor: #333;
+@navbarColor: #fff;
 @BGColor: #fff;
 @footerColor: #333;
 
@@ -145,16 +145,40 @@ body::-webkit-scrollbar,
 img.books {
     position: absolute;
     top: 16px;
+    float:left;
+}
+.clear {
+    clear:both;
+}
 
+.productImage {
+    float:left;
+    margin: 5% 0 10% 15%;
+}
+
+.add_to_cart {
+    margin: 25% 0 0 10%;
+    float:left;
+    background-color: lightgreen;
+    width: 60px;
+    height: 60px;
+    // border: 2px solid lightgreen;
+    border-radius: 50%;
+}
+
+.add_to_cart img {
+    position: relative;
+    top: 13px;
+    left: 2px;
 }
 
 article {
-
+    padding: 8px;
     background-color: #FFF6C5;
     .RoundedSquare(8px);
     // border: 8px solid #FF712C;
     // box-shadow: 0 0 8px 8px rgb(216, 141, 104);
-    margin: 12px;
+    // margin: 12px;
     width: 100%;
     text-align:center;
 }
@@ -165,19 +189,26 @@ article {
     }
 }
 
+
+.news,
+.newspage,
+.newspages,
+.latest_products,
+.most_sold,
+.this_week,
+.recommended_products {
+    margin-bottom: 8px;
+}
+
 .news,
 .latest_products,
 .most_sold,
 .this_week,
 .recommended_products {
-    // border: 1px solid #333;
-    padding: 8px;
-    margin-bottom: 8px;
+    margin: 12px;
 }
 
-.add_to_cart {
-    margin: 0 0 8px 0;
-}
+
 
 .name {
     font-style: italic;
@@ -213,26 +244,26 @@ article.newspage {
 /*-----------------navbar1-----------------*/
 
 .navbar1 {
+    // z-index:4;
 	background-color: @navbarColor;
     position: fixed;
     top: 0;
-    color: @lightTextColor;
+    right: 0;
+    color: @textColor;
 	min-width:335px;
     font-weight: 200;
-    padding: 0 0 0 0;
+    padding: 4px 0 4px 4px;
 	ul {
 		list-style-type: none;
 		margin: 0;
 		display:inline;
         padding: 0;
 		li {
-            display:block;
+            display:inline;
             text-align:center;
 		    padding: 0 16px 0 0;
-
-
 			a {
-				color: #fff;
+				color: @textColor;
 				text-decoration: none;
 
 			}
@@ -247,7 +278,6 @@ article.newspage {
 
 h1 {
     font-size:2.5em;
-    margin: 12px 0 12px 0;
     font-weight: 400;
     font-family: "essay-text",serif;
 }
@@ -573,19 +603,25 @@ td .scrollable {
 
 @media screen and (max-width: 750px) {
 	.navbar1 {
-        width: 100%;
+        width: 20%;
 
         ul {
             li {
+            text-align: left;
             display: block;
-            width: 100%;
+            // width: 100%;
             height:0;
-            transition: height 0.5s;
+            // position:absolute;
+            // left: -400px;
+            margin-left: -500px;
             visibility: hidden;
             }
             li.selected {
                 height:22px;
                 color: indianred;
+                margin-left: 10%;
+                // position:absolute;
+                // left:0px;
                 visibility: visible;
             }
             li:hover {
@@ -597,50 +633,31 @@ td .scrollable {
             li {
                 height:22px;
                 visibility:visible;
-
+                transition: 1s;
+                transition-timing-function: ease-out ;
+                // left: 0;
+                margin-left: 10%;
             }
         }
 	}
 }
 
-@media screen and (min-width: 750px) {
-	.navbar1 {
-        right: 0;
-        padding: 0 0 0 16px;
-        ul {
-
-            li {
-                display: inline;
-
-            }
-        }
-	}
-}
+// @media screen and (min-width: 750px) {
+// 	.navbar1 {
+//         right: 0;
+//         padding: 0 0 0 16px;
+//         ul {
+//
+//             li {
+//                 display: inline;
+//
+//             }
+//         }
+// 	}
+// }
 
 @media screen and (max-width: 900px) {
     .navbar1 {
 
     }
 }
-
-// @media screen and (max-width: 900px) {
-// 	.navbar1 {
-// 		width:100%;
-// 	}
-// }
-//
-// @media screen and (max-width: 750px) {
-//     .navbar1 {
-//         padding: 4px 0 4px 0;
-//     }
-//     .navbar1 ul {
-//         padding: 4px 0 4px 0;
-//     }
-// 	.navbar1 ul li {
-//             width: 100%;
-//             display: block;
-//             float:none;
-//             text-align:center;
-//             padding: 0 0 0 0;
-//     }
-// }

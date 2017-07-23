@@ -7,7 +7,7 @@ $navbar = [
     "items" => [
         "hem" => [
             "text" => "Hem",
-            "route" => "",
+            "route" => "home",
         ],
 
         "webshop-new" => [

@@ -1,6 +1,8 @@
 <?php
+
+
 $app->router->add(
-    "",
+    "home",
     function () use ($app) {
         $sql = <<<EOD
 SELECT

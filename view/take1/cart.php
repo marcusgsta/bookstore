@@ -1,6 +1,8 @@
 <div class="container">
 <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
-
+<a href="home">
+<img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
+</a>
 <h1>Varukorg</h1>
 
 
@@ -28,7 +30,7 @@ $sum = 0;
 ?>
     <tr>
         <td><?= esc($row->name); ?></td>
-        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"</td>
+        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="tableImage" title="Image of <?=esc($row->name)?>"</td>
         <td><?php
 
         $price = isset($row->new_price) ? $row->new_price : $row->price;

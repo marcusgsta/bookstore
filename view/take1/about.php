@@ -1,7 +1,8 @@
 <div class="container">
 <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
-<img src="image/books_logo.png?w=200" alt="Böcker" class="left">
-
+<a href="home">
+<img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
+</a>
 <?php
 if (!$data) {
     return;

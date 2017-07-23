@@ -3,7 +3,9 @@
 $product = $data; ?>
 
 <div class="container">
-
+    <a href="../home">
+    <img src="../image/books_logo.png?w=100" alt="Böcker" class="books left">
+    </a>
 <h1>Radera produkt</h1>
 
 <form method="post">

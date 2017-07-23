@@ -1,7 +1,8 @@
 <div class="container show-all">
     <?= isset($app->user_logged_in) ? $app->user_logged_in : "";?>
-<img src="image/books_logo.png?w=200" alt="Böcker" class="left">
-
+<a href="home">
+<img src="image/books_logo.png?w=100" alt="Böcker" class="books left">
+</a>
 <h1>Produkter</h1>
 <?php
 $search = isset($_GET['search']) ? htmlentities($_GET['search']) : "";
@@ -35,13 +36,17 @@ if ($search != "") {
     <tr>
         <td class="name"><?= esc($search_result->name); ?></td>
         <td><div class="scrollable"><?= esc($search_result->description); ?></div></td>
-        <td><img src="image/webshop/<?=esc($search_result->image)?>?w=150" class="productImage" title="Image of <?=esc($search_result->name)?>"></td>
+        <td><img src="image/webshop/<?=esc($search_result->image)?>?w=150" class="tableImage" title="Image of <?=esc($search_result->name)?>"></td>
         <td><?= esc($search_result->category); ?></td>
         <td><?php
         $price = isset($search_result->new_price) ? $search_result->new_price . " (<span class='line'>$search_result->price</span>)" : $search_result->price;
         echo $price; ?></td>
         <td><?= esc($search_result->items); ?></td>
-        <td><a href="?add=<?= esc($search_result->id);?>">Lägg till i varukorg</a></td>
+        <td><div class="add_to_cart">
+            <a href="webshop-new?add=<?= esc($search_result->id);?>">
+            <img src="image/webshop/add_to_cart.png?w=40" title="Lägg i varukorg" alt="Lägg i varukorg">
+        </a>
+    </div></td>
     </tr>
 
     <?php endforeach;?>
@@ -82,13 +87,17 @@ $min = 0;
     <tr>
         <td class="name"><?= esc($row->name); ?></td>
         <td><div class="scrollable"><?= esc($row->description); ?></div></td>
-        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"></td>
+        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="tableImage" title="Image of <?=esc($row->name)?>"></td>
         <td><?= esc($row->category); ?></td>
         <td><?php
         $price = isset($row->new_price) ? $row->new_price . " (<span class='line'>$row->price</span>)" : $row->price;
         echo $price; ?></td>
         <td><?= esc($row->items); ?></td>
-        <td><a href="?add=<?= esc($row->id);?>">Lägg till i varukorg</a></td>
+        <td><div class="add_to_cart">
+            <a href="webshop-new?add=<?= esc($row->id);?>">
+            <img src="image/webshop/add_to_cart.png?w=40" title="Lägg i varukorg" alt="Lägg i varukorg">
+        </a>
+    </div></td>
     </tr>
 
 <?php endforeach; ?>
