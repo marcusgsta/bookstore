@@ -186,6 +186,34 @@ EOD;
         return $res;
     }
 
+
+    /**
+     * Get categories and their popularity
+     * @var array $res      The resultset
+     * @return $res
+     */
+    public function getCategoryCloud()
+    {
+        $sql = "
+        SELECT
+        PC.id as cat_id,
+        PC.category,
+        P2C.id,
+        P2C.cat_id,
+        COUNT(P2C.id) AS amount
+        FROM Prod2Cat AS P2C
+        LEFT OUTER JOIN ProdCategory AS PC
+        ON PC.id = P2C.cat_id
+        GROUP BY P2C.cat_id
+        -- ORDER BY amount DESC
+        ";
+
+        $this->db->execute($sql);
+        $res = $this->db->fetchAll();
+        return $res;
+    }
+
+
     /**
      * Get userId from userName
      * @param string $user  A username
@@ -296,13 +324,9 @@ EOD;
      * @var array $res      The resultset
      * @return $res
      */
-    public function showProducts($orderby = 'name', $order = 'ASC', $limit = 10, $page = 1)
+    public function showProducts($orderby = 'name', $order = 'ASC', $limit = 10, $page = 1, $catId = "")
     {
-        // $sql = "SELECT * FROM VMovie LIMIT $hits OFFSET " . (($page - 1) * $hits);
-//SELECT * FROM VMovie LIMIT 2 OFFSET 2
-        // $this->db->execute("SELECT * FROM VProduct ORDER BY $orderby $order
-        // LIMIT $limit");
-        // $res = $this->db->fetchAll();
+
         $sql = "SELECT
         	P.id,
             (select COUNT(id) FROM Product) as rows,
@@ -322,12 +346,17 @@ EOD;
         	LEFT OUTER JOIN Offer
         		ON P.id = Offer.product
         	LEFT OUTER JOIN Inventory AS I
-        		ON P.id = I.prod_id
-        GROUP BY P.id
+        		ON P.id = I.prod_id";
+
+        if ($catId != "") {
+            $sql .= " WHERE PC.id = $catId";
+        }
+
+        $sql .= " GROUP BY P.id
         ORDER BY $orderby $order
         LIMIT $limit
         OFFSET " . (($page - 1) * $limit);
-        // $res = $this->db->executeFetchAll($sql);
+
         $res = $this->db->executeFetchAll($sql);
         return $res;
     }

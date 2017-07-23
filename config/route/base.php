@@ -1,5 +1,11 @@
 <?php
 
+$app->router->add(
+    "",
+    function () use ($app) {
+        header('Location: home');
+    }
+);
 
 $app->router->add(
     "home",
@@ -45,11 +51,15 @@ EOD;
 
         // Get recommended products
         $recommended = $app->admin->getRecommended();
-        // $sql = "SELECT * FROM VProduct
-        // WHERE recommended = 1";
-        // $recommended = $app->db->executeFetchAll($sql);
-
         $content[0]->recommended = $recommended;
+
+        // Get categories
+        $categories = $app->admin->getCategoryCloud();
+        $content[0]->categories = $categories;
+
+        
+
+
 
         $app->renderPage($title, $view, $content);
     }

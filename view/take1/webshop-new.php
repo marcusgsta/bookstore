@@ -60,12 +60,23 @@ if (!$data) {
     return;
 }
 $result = $data;
+$all_categories = $result[0]->all_categories;
 
 $hits = isset($_GET['hits']) ? $_GET['hits'] : 8;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $min = 0;
 ?>
-<h2>Alla produkter</h2>
+<h3>Kategorier</h3>
+<form class="" action="" method="get">
+    <select name="catId">
+        <option value="">Alla kategorier</option>
+        <?php foreach ($all_categories as $category) : ?>
+        <option value="<?= esc($category->cat_id) ?>"><?= esc($category->category) ?></option>
+    <?php endforeach; ?>
+    </select>
+    <input type="submit" name="" value="Välj">
+
+</form>
 <?php
     echo $app->admin->getHitsPerPage(array(2, 4, 8));
 

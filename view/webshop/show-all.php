@@ -36,7 +36,7 @@ $result = $data;
         <td><?= esc($row->id); ?></td>
         <td><?= esc($row->name); ?></td>
         <td><div class="scrollable"><?= esc($row->description); ?></div></td>
-        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>"</td>
+        <td><img src="image/webshop/<?=esc($row->image)?>?w=150" class="tableImage" title="Image of <?=esc($row->name)?>"</td>
         <td><?= esc($row->category); ?></td>
         <td><?= esc($row->price); ?></td>
         <td><?= esc($row->items); ?></td>

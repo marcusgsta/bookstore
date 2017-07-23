@@ -14,19 +14,17 @@ $app->router->add(
             die("Not valid input for sorting.");
         }
 
-
-
-        // if (!isset($_GET['hits']) && !isset($_GET['page'])) {
-        //     $_GET['hits'] = 8;
-        //     $_GET['page'] = 1;
-        // }
-
         $hits = isset($_GET['hits']) ? $_GET['hits'] : 8;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-        $result = $app->admin->showProducts($orderBy, $order, $hits, $page);
+        // Check if there is a category set
+        $category = isset($_GET['catId']) ? $_GET['catId'] : "";
 
+        $result = $app->admin->showProducts($orderBy, $order, $hits, $page, $category);
 
+        // Get categories
+        $all_categories = $app->admin->getCategoryCloud();
+        $result[0]->all_categories = $all_categories;
 
         // Check to see if a product has been added to cart
         $productId = getGet("add") ?: "";
