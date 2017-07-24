@@ -20,7 +20,8 @@ if ($search != "") {
 
     <?php $defaultRoute = "?route=show-all-sort&" ?>
 
-    <?php if (isset($search_results) and $search_results != "") :?>
+
+    <?php if (isset($search_results) and $search_results[0]->id != null) :?>
     <table>
         <tr>
         <th>Namn <?= $app->admin->orderby("name", $defaultRoute) ?></th>
@@ -52,7 +53,10 @@ if ($search != "") {
     <?php endforeach;?>
 
     </table>
-    <?php endif; ?>
+    <?php endif;
+if (isset($search_results) && $search_results[0]->id == null) {
+        echo "<p>Fann inga böcker!</p>";
+} ?>
 
 
 <?php

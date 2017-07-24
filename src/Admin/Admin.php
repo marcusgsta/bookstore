@@ -237,8 +237,34 @@ EOD;
      */
     public function searchProducts($searchString)
     {
-        $this->db->execute("SELECT * FROM VProduct WHERE name LIKE '%$searchString%' OR description LIKE '%$searchString%'");
+        $sql = "SELECT
+        P.id,
+        (select COUNT(id) FROM Product) as rows,
+        P.name,
+        P.description,
+        P.image,
+        P.recommended,
+        GROUP_CONCAT(DISTINCT PC.category) AS category,
+        P.price,
+        Offer.new_price,
+        I.items
+        FROM Product AS P
+        INNER JOIN Prod2Cat AS P2C
+        -- LEFT OUTER JOIN Prod2Cat AS P2C
+            ON P.id = P2C.prod_id
+        INNER JOIN ProdCategory AS PC
+        -- LEFT OUTER JOIN ProdCategory AS PC
+            ON PC.id = P2C.cat_id
+        LEFT OUTER JOIN Offer
+            ON P.id = Offer.product
+        LEFT OUTER JOIN Inventory AS I
+            ON P.id = I.prod_id
+        WHERE P.name LIKE '%$searchString%'
+        OR P.description LIKE '%$searchString&'";
+
+        $this->db->execute($sql);
         $res = $this->db->fetchAll();
+
         return $res;
     }
 

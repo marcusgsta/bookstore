@@ -21,3 +21,7 @@ Added phpunit tests, various bugfixes, validation error fixes and changes.
 v1.0.6 (2017-07-20)
 -------------------------
 Added responsive css-menu.
+
+v2.0.1 (2017-07-22)
+-------------------------
+Added category cloud and category sorting for products.
