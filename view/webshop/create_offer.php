@@ -22,7 +22,7 @@ $offers = $products[0]->offers;
         <?php foreach ($products as $product) : ?>
         <option value="<?=$product->name;?>">
             <?=$product->name;?></option>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     </select></td>
 </tr>
 <tr>
@@ -83,5 +83,5 @@ $offers = $products[0]->offers;
 
         <td></td>
     </tr>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 </table>

@@ -36,12 +36,12 @@ $text = isset($text) ? $text : $content;
         $this->renderView("default/link-list", [
             "links" => $links
         ]);
-endif; ?>
+    endif; ?>
 
     <?php if (isset($toc)) :
         $this->renderView("default/toc-list", [
             "toc" => $toc
         ]);
-endif; ?>
+    endif; ?>
 
 </div>

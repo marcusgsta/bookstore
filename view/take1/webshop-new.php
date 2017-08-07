@@ -76,7 +76,7 @@ $min = 0;
         <option value="">Alla kategorier</option>
         <?php foreach ($all_categories as $category) : ?>
         <option value="<?= esc($category->cat_id) ?>"><?= esc($category->category) ?></option>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     </select>
     <input type="submit" name="" value="Välj">
 

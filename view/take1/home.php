@@ -98,7 +98,7 @@ $categories = $resultset[0]->categories;
 
             <img src="image/webshop/<?=esc($row->image)?>?w=150" class="productImage" title="Image of <?=esc($row->name)?>">
             <?=esc($row->sold) . " stk sålda!";?>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
 
 
 </article>
@@ -115,25 +115,26 @@ $categories = $resultset[0]->categories;
             <div><?=esc($offer->new_price); ?> kr</div>
             <div><?=esc($offer->discount); ?>% rabatt</div>
 
-        <?php endforeach ?>
+            <?php endforeach ?>
 
 
 </article>
 <article class="category_cloud">
     <h2>Kategorier</h2>
 
-            <?php foreach ($categories as $category) {
-                if ($category->amount >= 5) {
-                    echo "<div class='extra_large_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category) . " " . "</a></div>";
-                } else if ($category->amount >= 4 && $category->amount < 5) {
-                    echo "<div class='large_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category) . " " . "</a></div>";
-                } else if ($category->amount >= 2 && $category->amount <= 3) {
-                    echo "<div class='medium_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category). " "  . "</a></div>";
-                } else if ($category->amount < 2) {
-                    echo "<div class='small_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category). " "  . "</a></div>";
-                };
+<?php
+foreach ($categories as $category) {
+    if ($category->amount >= 5) {
+        echo "<div class='extra_large_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category) . " " . "</a></div>";
+    } else if ($category->amount >= 4 && $category->amount < 5) {
+        echo "<div class='large_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category) . " " . "</a></div>";
+    } else if ($category->amount >= 2 && $category->amount <= 3) {
+        echo "<div class='medium_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category). " "  . "</a></div>";
+    } else if ($category->amount < 2) {
+        echo "<div class='small_font'><a href='webshop-new?catId=" . esc($category->cat_id) . "'>" . esc($category->category). " "  . "</a></div>";
+    };
 };
-    ?>
+?>
 
 
 </article>

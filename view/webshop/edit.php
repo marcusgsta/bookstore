@@ -122,7 +122,7 @@ if (hasKeyPost("doSave")) {
             <input type="checkbox" name="catId[]" value="<?=$category->id;?>" <?=in_array($category->id, $cat_array) ? 'checked' : ''?>>
 <?=$category->category; ?>
 </div>
-<?php endforeach;?>
+            <?php endforeach;?>
 
     </div>
 
